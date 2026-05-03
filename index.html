@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Investigación de las PIP · Santiago de Cuba</title>
+    <!-- Fuentes y estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a0e1a;
+            --gold: #c9952a;
+            --gold-l: #f0b429;
+            --gold-d: #a07820;
+            --white: #e8edf5;
+            --silver: #a8b4c8;
+            --red: #c0392b;
+            --cyan: #00d4ff;
+            --dark-panel: #0d1a30;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--navy);
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        /* Encabezado */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 2px solid var(--gold-d);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .header-badge {
+            background: var(--dark-panel);
+            border: 1px solid var(--gold-d);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--cyan);
+        }
+        /* Selector de PIP */
+        .selector-panel {
+            background: var(--dark-panel);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(201,149,42,0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .selector-panel label {
+            font-family: 'Oswald', sans-serif;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+        .selector-panel select {
+            background: #060f20;
+            color: var(--white);
+            border: 1px solid var(--gold-d);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            min-width: 280px;
+        }
+        .btn {
+            background: var(--gold-d);
+            border: none;
+            color: black;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gold-d);
+            color: var(--gold);
+        }
+        /* Ficha de investigación */
+        .research-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: var(--dark-panel);
+            border-radius: 8px;
+            padding: 18px;
+            border: 1px solid rgba(201,149,42,0.2);
+        }
+        .card-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(201,149,42,0.3);
+            padding-bottom: 8px;
+        }
+        .info-row {
+            display: flex;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-label {
+            width: 140px;
+            font-weight: 600;
+            color: var(--silver);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            flex: 1;
+            color: var(--white);
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #1e3a5f;
+            color: #b8d4ff;
+        }
+        .badge.pipp { background: #5f1e1e; color: #ffb8b8; }
+        .badge.eob { background: #5f3e1e; color: #ffd4a3; }
+        .badge.desplazamiento { background: #1e5f3e; color: #a3ffc8; }
+        .risk-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .risk-high { background: rgba(192,57,43,0.25); color: #ff8a8a; border: 1px solid var(--red); }
+        .risk-mid { background: rgba(201,149,42,0.2); color: var(--gold-l); border: 1px solid var(--gold-d); }
+        .risk-low { background: rgba(0,212,255,0.1); color: var(--cyan); border: 1px solid var(--cyan); }
+        /* Perfil integrador */
+        .profile-section {
+            background: var(--dark-panel);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--gold);
+            margin-top: 10px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(201,149,42,0.3);
+        }
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1a3a6e, #0d1525);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+        }
+        .profile-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            color: var(--gold-l);
+            text-transform: uppercase;
+        }
+        .profile-alias {
+            font-size: 1rem;
+            color: var(--silver);
+        }
+        .profile-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+        .tactical-box {
+            background: #060f20;
+            border-left: 4px solid var(--cyan);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .tactical-title {
+            font-family: 'Oswald', sans-serif;
+            color: var(--cyan);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            .research-grid { grid-template-columns: 1fr; }
+            .info-label { width: 110px; }
+            .header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- CABECERA -->
+    <div class="header">
+        <h1>🔍 INVESTIGACIÓN DE LAS PIP</h1>
+        <div class="header-badge">Provincia Santiago de Cuba · PNR</div>
+    </div>
+
+    <!-- SELECTOR DE PIP -->
+    <div class="selector-panel">
+        <label>📋 SELECCIONE PIP A INVESTIGAR:</label>
+        <select id="pipSelector" onchange="loadPIPData()">
+            <!-- Se llena con JS -->
+        </select>
+        <button class="btn" onclick="generateFullProfile()">GENERAR PERFIL INTEGRADOR</button>
+        <button class="btn btn-outline" onclick="exportarFichaPDF()">📄 EXPORTAR FICHA</button>
+    </div>
+
+    <!-- FICHA DE INVESTIGACIÓN (2 columnas) -->
+    <div class="research-grid">
+        <!-- Columna izquierda: Datos generales y control -->
+        <div>
+            <div class="card">
+                <div class="card-title">📌 I. IDENTIFICACIÓN Y CONTROL</div>
+                <div id="identificacionContent"></div>
+            </div>
+            <div class="card" style="margin-top:16px;">
+                <div class="card-title">⚖️ II. FUNDAMENTO LEGAL Y SEGUIMIENTO</div>
+                <div id="legalContent"></div>
+            </div>
+        </div>
+        <!-- Columna derecha: Vínculos y perfil -->
+        <div>
+            <div class="card">
+                <div class="card-title">🔗 III. VÍNCULOS Y RELACIONES</div>
+                <div id="vinculosContent"></div>
+            </div>
+            <div class="card" style="margin-top:16px;">
+                <div class="card-title">🧠 IV. PERFIL CONDUCTUAL Y PSICOLÓGICO</div>
+                <div id="perfilContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODUS OPERANDI Y DESPLAZAMIENTO -->
+    <div class="card" style="margin-bottom:24px;">
+        <div class="card-title">🗺️ V. MODUS OPERANDI Y ANÁLISIS DE DESPLAZAMIENTO</div>
+        <div id="modusContent"></div>
+    </div>
+
+    <!-- PERFIL INTEGRADOR PARA TOMA DE DECISIONES -->
+    <div class="profile-section" id="perfilIntegradorPanel">
+        <div class="card-title" style="border-bottom-color:var(--gold);">🎯 PERFIL INTEGRADOR · VALORACIÓN PARA TOMA DE DECISIONES</div>
+        <div id="fullProfileContent"></div>
+    </div>
+</div>
+
+<script>
+// ========== BASE DE DATOS FICTICIA (REALISTA) ==========
+const ESTACIONES = [
+    { id:1, nombre:'1ra Estación', zona:'Santiago de Cuba — Centro' },
+    { id:2, nombre:'2da Estación', zona:'Santiago de Cuba — Este' },
+    { id:3, nombre:'3ra Estación', zona:'Santiago de Cuba — Norte' },
+    { id:4, nombre:'Palma Soriano', zona:'Palma Soriano' },
+    { id:5, nombre:'La Maya', zona:'La Maya' },
+    { id:6, nombre:'Contramaestre', zona:'Contramaestre' },
+    { id:7, nombre:'San Luis', zona:'San Luis' },
+    { id:8, nombre:'Mella', zona:'Mella' },
+    { id:9, nombre:'Guamá', zona:'Guamá' }
+];
+
+// Índices de peligrosidad reales según Código Penal cubano
+const INDICES_PELIGROSIDAD = [
+    'Embriaguez habitual o dipsomanía',
+    'Toxicomanía',
+    'Conducta antisocial',
+    'Vínculos con elementos desafectos o contrarrevolucionarios',
+    'Proclividad al delito',
+    'Reincidencia',
+    'Habitualidad delictiva'
+];
+
+// PIPs de muestra (datos ficticios pero realistas)
+const pipsDB = [
+    {
+        id: 1,
+        nombre: 'Luis Rodríguez García',
+        alias: 'El Rubio',
+        ci: '85051234567',
+        categoria: 'PIPP',
+        subcategoria: 'PIP Priorizada',
+        estacionId: 1,
+        situacion: 'Prófugo',
+        riesgo: 'ALTO',
+        fechaInicioControl: '2024-08-15',
+        fechaFinControl: '2025-08-15',
+        direccion: 'Calle 3 No. 12, e/ Enramadas y Aguilera',
+        direccionAlt: 'Reparto Flores No. 8 (pernocta ocasional)',
+        consejoPopular: 'Centro Histórico',
+        sector: '4',
+        jefeSector: 'Tte. Miguel Ángel Ferrer',
+        antecedentesPenales: 'Robo con fuerza (2022), Lesiones (2020)',
+        antecedentesPoliciales: 'ADV 2020, 2022, 2024; Detención 2021',
+        actaAdvertencia: 'Firmada con observaciones (15/08/2024)',
+        fundamentoLegal: 'Índices de peligrosidad: Conducta antisocial, Reincidencia, Proclividad al delito',
+        estadoExpediente: 'Expediente Físico No. PIPP-1RA-2024-042',
+        observacionesControl: 'Presentación mensual irregular. Última presentación: 10/01/2026 (no cumplió).',
+        // Vínculos
+        vinculosAfectivos: 'María González (pareja, reside en Reparto Flores)',
+        vinculosAmorosos: 'Relación paralela con Yaima Pérez (dirección desconocida)',
+        vinculosFamiliares: 'Madre en La Maya, hermano en Palma Soriano (sin antecedentes)',
+        vinculosSociales: 'Frecuenta parque de Versalles y barriada de Chicharrones',
+        vinculosDelincuenciales: 'Asociado a "El Chino" Pérez y banda del Reparto Flores',
+        vinculosExterior: 'Tío materno en Miami (envía remesas)',
+        vinculosPrision: 'Coincidió con "El Yoyo" en Combinado del Este',
+        enemigos: 'Michel "El Gordo" (riña por deudas), "El Flaco" de Versalles (conflicto territorial)',
+        redesSociales: 'Facebook "Luis El Rubio", grupos de compra-venta en WhatsApp',
+        // Perfil psicológico
+        temperamento: 'Colérico',
+        orientacionSexual: 'Heterosexual',
+        habilidadesMotoras: 'Zurdo',
+        religion: 'Santería / Lucumí',
+        deportes: 'Boxeo, Judo (practica regularmente en gimnasio del Reparto Flores)',
+        gustos: 'Música urbana, peleas de perros, carreras de motos',
+        vicios: 'Consumo frecuente de Ron, cigarros, juegos de azar (apuestas clandestinas)',
+        conductaSocial: 'Altanero, abusador, guaposo, usa arma blanca, conflictivo',
+        miedos: 'A la presión policial, a la PNR, a la prisión, a perros',
+        tatuajes: 'Antebrazo derecho: Tribal; Pecho: Nombre "Luis"',
+        cicatrices: 'Cicatriz de 3 cm en ceja izquierda',
+        padecimientos: 'Ninguno relevante',
+        // Modus operandi
+        modusOperandi: 'Actúa en horario nocturno (22:00-04:00). Selecciona viviendas con poca visibilidad y accesos vulnerables. Utiliza la violencia solo si encuentra resistencia. Prefiere actuar solo, ocasionalmente con "El Chino".',
+        modoVida: 'Inestable, cambia frecuentemente de lugar de pernocta entre las direcciones conocidas. Sin vínculo laboral estable.',
+        transporte: 'Motocicleta sin chapa (posiblemente robada)',
+        lugaresFrecuenta: 'Parque de Versalles, barriada de Chicharrones, Reparto Flores',
+        // Desplazamiento
+        hechosDesplazamiento: [
+            { fecha: '2025-11-15', denuncia: 'D-2025-0042', delito: 'Robo con fuerza en las cosas', lugar: 'Calle Enramadas esq. San Pedro', estacion: '1ra Estación', capturado: 'Sí', procesado: 'Sí' },
+            { fecha: '2025-12-02', denuncia: 'D-2025-0123', delito: 'Hurto', lugar: 'Reparto Flores', estacion: '3ra Estación', capturado: 'No', procesado: 'No' },
+            { fecha: '2026-01-10', denuncia: 'D-2026-0008', delito: 'Agresión', lugar: 'Calle Martí, Palma Soriano', estacion: 'Palma Soriano', capturado: 'No', procesado: 'Pendiente' }
+        ]
+    },
+    {
+        id: 2,
+        nombre: 'Pedro Martínez Fonseca',
+        alias: 'El Chino',
+        ci: '90040823456',
+        categoria: 'PIP E.O.B.',
+        subcategoria: 'Elemento de Conducta Antisocial',
+        estacionId: 3,
+        situacion: 'Libre',
+        riesgo: 'MEDIO',
+        fechaInicioControl: '2024-11-20',
+        fechaFinControl: '2025-11-20',
+        direccion: 'Reparto Flores No. 45',
+        direccionAlt: '',
+        consejoPopular: 'Vista Alegre',
+        sector: '7',
+        jefeSector: 'Tte. Yosvany Labrada',
+        antecedentesPenales: 'Hurto (2021)',
+        antecedentesPoliciales: 'ADV 2021, 2023',
+        actaAdvertencia: 'Firmada (20/11/2024)',
+        fundamentoLegal: 'Índices de peligrosidad: Embriaguez habitual, Conducta antisocial',
+        estadoExpediente: 'Expediente Físico No. EOB-3RA-2024-018',
+        observacionesControl: 'Cumple presentaciones. Reportes de escándalo público en fines de semana.',
+        vinculosAfectivos: 'Soltero',
+        vinculosAmorosos: '',
+        vinculosFamiliares: 'Padre reside en Contramaestre',
+        vinculosSociales: 'Grupo del Reparto Flores',
+        vinculosDelincuenciales: 'Asociado a Luis Rodríguez "El Rubio"',
+        vinculosExterior: '',
+        vinculosPrision: '',
+        enemigos: 'Vecinos de la cuadra (quejas por ruido)',
+        redesSociales: '',
+        temperamento: 'Sanguíneo',
+        orientacionSexual: 'Heterosexual',
+        habilidadesMotoras: 'Derecho',
+        religion: 'Sin creencia',
+        deportes: 'Dominó',
+        gustos: 'Música a alto volumen, cerveza',
+        vicios: 'Consumo excesivo de alcohol fines de semana',
+        conductaSocial: 'Escandaloso, conflictivo bajo efectos del alcohol',
+        miedos: 'A la prisión',
+        tatuajes: 'Ninguno',
+        cicatrices: '',
+        padecimientos: '',
+        modusOperandi: 'Participa en hurtos menores como cómplice. Principalmente actúa como "campana".',
+        modoVida: 'Trabajo informal como ayudante de construcción.',
+        transporte: 'Bicicleta',
+        lugaresFrecuenta: 'Reparto Flores, Parque de Versalles',
+        hechosDesplazamiento: []
+    },
+    {
+        id: 3,
+        nombre: 'Carlos Hernández Díaz',
+        alias: 'Cabeza',
+        ci: '88071534567',
+        categoria: 'PIP Desplazamiento',
+        subcategoria: 'PIP con movilidad delictiva',
+        estacionId: 4,
+        situacion: 'Proceso Penal',
+        riesgo: 'ALTO',
+        fechaInicioControl: '2024-06-10',
+        fechaFinControl: '2025-06-10',
+        direccion: 'Calle 10 No. 23, Palma Soriano',
+        direccionAlt: 'La Maya (casa de familiar)',
+        consejoPopular: 'Centro',
+        sector: '2',
+        jefeSector: 'Tte. Reinaldo García',
+        antecedentesPenales: 'Robo con violencia (2019), Lesiones graves (2021)',
+        antecedentesPoliciales: 'Múltiples ADV, detenciones en 3ra Estación y Contramaestre',
+        actaAdvertencia: 'Firmada (10/06/2024)',
+        fundamentoLegal: 'Índices de peligrosidad: Reincidencia, Habitualidad delictiva, Proclividad al delito',
+        estadoExpediente: 'Expediente Físico No. DESP-PALMA-2024-007',
+        observacionesControl: 'Actualmente en proceso penal por hecho en Contramaestre. Medida cautelar de presentación quincenal.',
+        vinculosAfectivos: 'Yudith Rojas (pareja)',
+        vinculosAmorosos: '',
+        vinculosFamiliares: 'Hermano en Contramaestre',
+        vinculosSociales: '',
+        vinculosDelincuenciales: 'Grupo delictivo de Contramaestre',
+        vinculosExterior: '',
+        vinculosPrision: '',
+        enemigos: '',
+        redesSociales: '',
+        temperamento: 'Colérico',
+        orientacionSexual: 'Heterosexual',
+        habilidadesMotoras: 'Derecho',
+        religion: 'Católico',
+        deportes: '',
+        gustos: '',
+        vicios: 'Consumo de drogas',
+        conductaSocial: 'Violento, intimidante, usa arma blanca',
+        miedos: 'A la prisión',
+        tatuajes: 'Cuello: Estrella',
+        cicatrices: '',
+        padecimientos: '',
+        modusOperandi: 'Desplazamiento a Contramaestre y La Maya para cometer robos. Utiliza transporte público para movilizarse. Actúa con violencia si la víctima se resiste.',
+        modoVida: 'Sin empleo fijo. Pernocta en varias direcciones.',
+        transporte: 'Transporte público',
+        lugaresFrecuenta: 'Terminal de ómnibus, zonas periféricas',
+        hechosDesplazamiento: [
+            { fecha: '2025-09-12', denuncia: 'D-2025-0089', delito: 'Robo con violencia', lugar: 'Contramaestre', estacion: 'Contramaestre', capturado: 'Sí', procesado: 'Sí' },
+            { fecha: '2025-10-05', denuncia: 'D-2025-0102', delito: 'Hurto', lugar: 'La Maya', estacion: 'La Maya', capturado: 'No', procesado: 'Pendiente' }
+        ]
+    }
+];
+
+// ========== FUNCIONES DE RENDERIZADO ==========
+let currentPIP = pipsDB[0];
+
+function inicializarSelector() {
+    const selector = document.getElementById('pipSelector');
+    selector.innerHTML = pipsDB.map(p => 
+        `<option value="${p.id}">${p.nombre} (${p.alias}) — ${p.categoria} — ${ESTACIONES.find(e=>e.id===p.estacionId).nombre}</option>`
+    ).join('');
+    loadPIPData();
+}
+
+function loadPIPData() {
+    const id = parseInt(document.getElementById('pipSelector').value);
+    currentPIP = pipsDB.find(p => p.id === id);
+    renderFicha();
+    generateFullProfile();
+}
+
+function renderFicha() {
+    const p = currentPIP;
+    const est = ESTACIONES.find(e => e.id === p.estacionId);
+    
+    // I. Identificación y control
+    document.getElementById('identificacionContent').innerHTML = `
+        <div class="info-row"><span class="info-label">Nombre completo</span><span class="info-value">${p.nombre}</span></div>
+        <div class="info-row"><span class="info-label">Alias</span><span class="info-value">"${p.alias}"</span></div>
+        <div class="info-row"><span class="info-label">Carné de Identidad</span><span class="info-value">${p.ci}</span></div>
+        <div class="info-row"><span class="info-label">Categoría PIP</span><span class="info-value"><span class="badge ${p.categoria === 'PIPP' ? 'pipp' : (p.categoria.includes('E.O.B.') ? 'eob' : 'desplazamiento')}">${p.categoria}</span> (${p.subcategoria})</span></div>
+        <div class="info-row"><span class="info-label">Estación de origen</span><span class="info-value">${est.nombre} — ${est.zona}</span></div>
+        <div class="info-row"><span class="info-label">Situación actual</span><span class="info-value" style="color:${p.situacion==='Prófugo'?'#ff6b6b':'var(--gold-l)'};">${p.situacion}</span></div>
+        <div class="info-row"><span class="info-label">Nivel de Riesgo</span><span class="info-value"><span class="risk-badge risk-${p.riesgo.toLowerCase()}">${p.riesgo}</span></span></div>
+        <div class="info-row"><span class="info-label">Dirección principal</span><span class="info-value">${p.direccion}</span></div>
+        ${p.direccionAlt ? `<div class="info-row"><span class="info-label">Dirección alterna</span><span class="info-value">${p.direccionAlt}</span></div>` : ''}
+        <div class="info-row"><span class="info-label">Consejo Popular</span><span class="info-value">${p.consejoPopular}</span></div>
+        <div class="info-row"><span class="info-label">Sector PNR</span><span class="info-value">${p.sector}</span></div>
+        <div class="info-row"><span class="info-label">Jefe de Sector</span><span class="info-value">${p.jefeSector}</span></div>
+    `;
+    
+    // II. Fundamento legal y seguimiento
+    document.getElementById('legalContent').innerHTML = `
+        <div class="info-row"><span class="info-label">Antecedentes penales</span><span class="info-value">${p.antecedentesPenales}</span></div>
+        <div class="info-row"><span class="info-label">Antecedentes policiales</span><span class="info-value">${p.antecedentesPoliciales}</span></div>
+        <div class="info-row"><span class="info-label">Acta de Advertencia</span><span class="info-value">${p.actaAdvertencia}</span></div>
+        <div class="info-row"><span class="info-label">Fundamento legal</span><span class="info-value">${p.fundamentoLegal}</span></div>
+        <div class="info-row"><span class="info-label">Expediente físico</span><span class="info-value">${p.estadoExpediente}</span></div>
+        <div class="info-row"><span class="info-label">Fecha inicio control</span><span class="info-value">${p.fechaInicioControl}</span></div>
+        <div class="info-row"><span class="info-label">Fecha fin control</span><span class="info-value">${p.fechaFinControl}</span></div>
+        <div class="info-row"><span class="info-label">Observaciones</span><span class="info-value">${p.observacionesControl}</span></div>
+    `;
+    
+    // III. Vínculos
+    document.getElementById('vinculosContent').innerHTML = `
+        <div class="info-row"><span class="info-label">Vínculos afectivos</span><span class="info-value">${p.vinculosAfectivos || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vínculos amorosos</span><span class="info-value">${p.vinculosAmorosos || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vínculos familiares</span><span class="info-value">${p.vinculosFamiliares || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vínculos sociales</span><span class="info-value">${p.vinculosSociales || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vínculos delincuenciales</span><span class="info-value">${p.vinculosDelincuenciales || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vínculos en exterior</span><span class="info-value">${p.vinculosExterior || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vínculos en prisión</span><span class="info-value">${p.vinculosPrision || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Enemigos conocidos</span><span class="info-value">${p.enemigos || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Redes sociales</span><span class="info-value">${p.redesSociales || '—'}</span></div>
+    `;
+    
+    // IV. Perfil conductual y psicológico
+    document.getElementById('perfilContent').innerHTML = `
+        <div class="info-row"><span class="info-label">Temperamento</span><span class="info-value">${p.temperamento}</span></div>
+        <div class="info-row"><span class="info-label">Orientación sexual</span><span class="info-value">${p.orientacionSexual}</span></div>
+        <div class="info-row"><span class="info-label">Habilidades motoras</span><span class="info-value">${p.habilidadesMotoras}</span></div>
+        <div class="info-row"><span class="info-label">Religión</span><span class="info-value">${p.religion}</span></div>
+        <div class="info-row"><span class="info-label">Deportes</span><span class="info-value">${p.deportes || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Gustos / Afinidades</span><span class="info-value">${p.gustos || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Vicios</span><span class="info-value">${p.vicios || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Conducta social</span><span class="info-value">${p.conductaSocial}</span></div>
+        <div class="info-row"><span class="info-label">Miedos / Temores</span><span class="info-value">${p.miedos}</span></div>
+        <div class="info-row"><span class="info-label">Tatuajes</span><span class="info-value">${p.tatuajes || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Cicatrices</span><span class="info-value">${p.cicatrices || '—'}</span></div>
+        <div class="info-row"><span class="info-label">Padecimientos</span><span class="info-value">${p.padecimientos || '—'}</span></div>
+    `;
+    
+    // V. Modus operandi y desplazamiento
+    let desplazamientoHTML = '';
+    if (p.hechosDesplazamiento.length > 0) {
+        desplazamientoHTML = `
+            <div style="margin-top:16px;">
+                <h4 style="color:var(--gold); margin-bottom:10px;">📊 HECHOS DE DESPLAZAMIENTO REGISTRADOS</h4>
+                ${p.hechosDesplazamiento.map(h => `
+                    <div style="background:#060f20; border-left:3px solid var(--cyan); padding:8px 12px; margin-bottom:8px; border-radius:4px;">
+                        <div><strong>${h.fecha}</strong> · Denuncia: ${h.denuncia}</div>
+                        <div>${h.delito} — ${h.lugar} (${h.estacion})</div>
+                        <div>Capturado: ${h.capturado} · Procesado: ${h.procesado}</div>
+                    </div>
+                `).join('')}
+                <p style="margin-top:10px; color:var(--silver);">
+                    <strong>Análisis de movilidad:</strong> Se han registrado ${p.hechosDesplazamiento.length} hechos fuera de su estación de origen, 
+                    afectando a las estaciones de ${[...new Set(p.hechosDesplazamiento.map(h=>h.estacion))].join(', ')}. 
+                    ${p.hechosDesplazamiento.filter(h=>h.capturado==='No').length} hechos sin captura, lo que evidencia capacidad de evasión.
+                </p>
+            </div>
+        `;
+    } else {
+        desplazamientoHTML = `<p style="color:var(--silver);">No se han registrado hechos de desplazamiento para esta PIP.</p>`;
+    }
+    
+    document.getElementById('modusContent').innerHTML = `
+        <div class="info-row"><span class="info-label">Modus Operandi</span><span class="info-value">${p.modusOperandi}</span></div>
+        <div class="info-row"><span class="info-label">Modo de Vida</span><span class="info-value">${p.modoVida}</span></div>
+        <div class="info-row"><span class="info-label">Medios de transporte</span><span class="info-value">${p.transporte}</span></div>
+        <div class="info-row"><span class="info-label">Lugares que frecuenta</span><span class="info-value">${p.lugaresFrecuenta}</span></div>
+        ${desplazamientoHTML}
+    `;
+}
+
+function generateFullProfile() {
+    const p = currentPIP;
+    const est = ESTACIONES.find(e => e.id === p.estacionId);
+    
+    // Determinar advertencia táctica por artes marciales
+    const deportesPeligrosos = ['Boxeo', 'Judo', 'Karate', 'Lucha', 'Taekwondo', 'MMA'];
+    let advertenciaArtesMarciales = '';
+    if (p.deportes) {
+        const depArray = p.deportes.toLowerCase().split(/[,\s]+/);
+        const encontrados = deportesPeligrosos.filter(d => depArray.includes(d.toLowerCase()));
+        if (encontrados.length) {
+            advertenciaArtesMarciales = `⚠️ El sujeto practica ${encontrados.join(', ')}, lo que incrementa su capacidad de resistencia física. Se recomienda detención con superioridad numérica y uso de medios de contención.`;
+        }
+    }
+    
+    // Valoración de riesgo
+    const riesgoNivel = p.riesgo;
+    let valoracionRiesgo = '';
+    if (p.situacion === 'Prófugo' && p.riesgo === 'ALTO') {
+        valoracionRiesgo = 'ALTO (Nivel 3). La combinación de temperamento colérico, antecedentes violentos, condición de prófugo y entrenamiento en artes marciales configura un escenario de alto riesgo para la fuerza actuante y terceros.';
+    } else if (p.riesgo === 'ALTO') {
+        valoracionRiesgo = 'ALTO (Nivel 3). Antecedentes penales relevantes y perfil conductual violento. Se requiere precaución en cualquier intervención.';
+    } else {
+        valoracionRiesgo = 'MEDIO (Nivel 2). Presenta factores de riesgo moderados. Mantener vigilancia y actualizar ficha periódicamente.';
+    }
+    
+    const perfilHTML = `
+        <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <div>
+                <div class="profile-name">${p.nombre}</div>
+                <div class="profile-alias">Alias: "${p.alias}" · CI: ${p.ci}</div>
+                <div style="margin-top:5px;">
+                    <span class="badge ${p.categoria === 'PIPP' ? 'pipp' : (p.categoria.includes('E.O.B.') ? 'eob' : 'desplazamiento')}">${p.categoria}</span>
+                    <span class="risk-badge risk-${p.riesgo.toLowerCase()}" style="margin-left:8px;">RIESGO ${p.riesgo}</span>
+                    <span style="margin-left:8px; color:${p.situacion==='Prófugo'?'#ff6b6b':'var(--gold-l)'};">${p.situacion}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-text">
+            <p><strong style="color:var(--gold);">I. IDENTIFICACIÓN Y SITUACIÓN ADMINISTRATIVA</strong><br>
+            El elemento ${p.nombre}, conocido como "${p.alias}", portador del CI ${p.ci}, se encuentra catalogado como <strong>${p.categoria} (${p.subcategoria})</strong> 
+            y su situación actual es <strong>${p.situacion}</strong>. Su residencia principal se ubica en ${p.direccion}, Consejo Popular ${p.consejoPopular}, 
+            correspondiente al Sector PNR ${p.sector} de la ${est.nombre}. ${p.direccionAlt ? `Se ha identificado una dirección alterna en ${p.direccionAlt}.` : ''}</p>
+            
+            <p><strong style="color:var(--gold);">II. ANTECEDENTES Y TRAYECTORIA DELICTIVA</strong><br>
+            Registra antecedentes penales por ${p.antecedentesPenales}. En el ámbito policial, presenta: ${p.antecedentesPoliciales}. 
+            El ${p.fechaInicioControl} se le levantó Acta de Advertencia Oficial, la cual fue ${p.actaAdvertencia.toLowerCase()}. 
+            El control se fundamenta legalmente en: ${p.fundamentoLegal}.</p>
+            
+            <p><strong style="color:var(--gold);">III. PERFIL PSICOSOCIAL Y VÍNCULOS</strong><br>
+            En el plano psicológico, se clasifica con temperamento <strong>${p.temperamento}</strong> y orientación sexual ${p.orientacionSexual}. 
+            Su conducta social se caracteriza por ser ${p.conductaSocial}. Presenta miedos identificados hacia ${p.miedos}. 
+            ${p.religion ? `Profesa la religión ${p.religion}. ` : ''}Es ${p.habilidadesMotoras} en sus habilidades motoras. 
+            ${p.tatuajes ? `Presenta tatuajes visibles: ${p.tatuajes}. ` : ''}${p.cicatrices ? `Cicatrices: ${p.cicatrices}. ` : ''}<br>
+            <strong>Vínculos relevantes:</strong> ${p.vinculosAfectivos ? `Afectivos: ${p.vinculosAfectivos}. ` : ''}
+            ${p.vinculosFamiliares ? `Familiares: ${p.vinculosFamiliares}. ` : ''}
+            ${p.vinculosDelincuenciales ? `Delincuenciales: ${p.vinculosDelincuenciales}. ` : ''}
+            ${p.enemigos ? `Enemigos: ${p.enemigos}. ` : ''}
+            ${p.redesSociales ? `Redes Sociales: ${p.redesSociales}. ` : ''}
+            ${p.deportes ? `Practica ${p.deportes}. ` : ''}
+            ${p.vicios ? `Vicios: ${p.vicios}. ` : ''}</p>
+            
+            <p><strong style="color:var(--gold);">IV. MODUS OPERANDI Y DESPLAZAMIENTO</strong><br>
+            <strong>Modus Operandi:</strong> ${p.modusOperandi}<br>
+            <strong>Modo de Vida:</strong> ${p.modoVida}<br>
+            <strong>Transporte:</strong> ${p.transporte}<br>
+            ${p.hechosDesplazamiento.length > 0 ? `
+            <strong>Análisis de Desplazamiento:</strong> Se han registrado ${p.hechosDesplazamiento.length} hechos delictivos fuera de su territorio de residencia, 
+            afectando a las estaciones de ${[...new Set(p.hechosDesplazamiento.map(h=>h.estacion))].join(', ')}. 
+            Ha logrado eludir la captura en ${p.hechosDesplazamiento.filter(h=>h.capturado==='No').length} ocasiones, 
+            evidenciando movilidad interterritorial y capacidad de ocultamiento.` : 'No registra hechos de desplazamiento.'}</p>
+        </div>
+        
+        <div class="tactical-box">
+            <div class="tactical-title">🎯 VALORACIÓN DE RIESGO OPERATIVO</div>
+            <p style="margin-bottom:15px;"><strong>Clasificación: ${valoracionRiesgo}</strong></p>
+            ${advertenciaArtesMarciales ? `<p style="margin-bottom:15px; color:#ffb8b8;">${advertenciaArtesMarciales}</p>` : ''}
+            
+            <div class="tactical-title" style="margin-top:15px;">📋 RECOMENDACIONES TÁCTICAS PARA LA TOMA DE DECISIONES</div>
+            <ul style="margin-left:20px; color:var(--white);">
+                <li>Verificar las direcciones conocidas: ${p.direccion}${p.direccionAlt ? `, ${p.direccionAlt}` : ''}.</li>
+                <li>Puntos de frecuentación: ${p.lugaresFrecuenta}.</li>
+                ${p.situacion === 'Prófugo' ? '<li><strong>PRIORIDAD DE CAPTURA:</strong> Coordinar con las estaciones donde ha delinquido para establecer cerco perimetral.</li>' : '<li>Mantener vigilancia discreta y actualizar ficha fotográfica.</li>'}
+                ${p.habilidadesMotoras === 'Zurdo' ? '<li>El sujeto es zurdo. Abordar por el flanco derecho para reducir su capacidad de reacción.</li>' : ''}
+                ${advertenciaArtesMarciales ? '<li>Extremar precauciones por su entrenamiento en artes marciales. Evitar forcejeo cuerpo a cuerpo.</li>' : '<li>Proceder con protocolo estándar de detención.</li>'}
+                ${p.miedos.includes('presión policial') ? '<li>Aprovechar su miedo a la presión policial durante el interrogatorio para obtener información sobre cómplices.</li>' : ''}
+                <li>Expediente físico de referencia: ${p.estadoExpediente}. Jefe de Sector responsable: ${p.jefeSector}.</li>
+            </ul>
+        </div>
+        <p style="margin-top:15px; font-size:0.8rem; color:var(--silver); text-align:right;">
+            Perfil generado: ${new Date().toLocaleDateString('es-CU', {year:'numeric', month:'long', day:'numeric'})} · 
+            Sistema de Investigación de PIP · ${est.nombre}
+        </p>
+    `;
+    
+    document.getElementById('fullProfileContent').innerHTML = perfilHTML;
+}
+
+function exportarFichaPDF() {
+    // Simulación de exportación (en una app real se usaría jsPDF o similar)
+    const p = currentPIP;
+    const contenido = `
+FICHA DE INVESTIGACIÓN - PIP
+${'='.repeat(40)}
+Nombre: ${p.nombre}
+Alias: ${p.alias}
+CI: ${p.ci}
+Categoría: ${p.categoria}
+Situación: ${p.situacion}
+Riesgo: ${p.riesgo}
+Estación: ${ESTACIONES.find(e=>e.id===p.estacionId).nombre}
+Jefe de Sector: ${p.jefeSector}
+---
+PERFIL INTEGRADOR (Resumen):
+${p.modusOperandi}
+---
+Recomendaciones tácticas disponibles en el sistema.
+    `;
+    const blob = new Blob(['\uFEFF'+contenido], {type: 'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `FICHA_${p.nombre.replace(/ /g,'_')}.txt`;
+    a.click();
+    alert('📄 Ficha exportada como archivo de texto.\n\n' + contenido);
+}
+
+// Inicializar
+window.onload = function() {
+    inicializarSelector();
+};
+</script>
+</body>
+</html>
+
