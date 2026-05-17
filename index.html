@@ -25,6 +25,7 @@ body{background:var(--bg);background-image:radial-gradient(ellipse at 10% 0%,rgb
 .tb:hover{color:var(--ac);border-color:var(--ac);}
 .tb.on{background:linear-gradient(135deg,rgba(0,200,255,.14),rgba(0,100,200,.07));color:var(--ac);border-color:var(--ac);box-shadow:0 0 12px rgba(0,200,255,.15);}
 .tb.mc-t.on{background:linear-gradient(135deg,rgba(0,255,204,.12),rgba(0,150,120,.06));color:var(--mc);border-color:var(--mc);}
+.tb.rend-t.on{background:linear-gradient(135deg,rgba(0,255,204,.12),rgba(0,150,120,.06));color:var(--mc);border-color:var(--mc);box-shadow:0 0 12px rgba(0,255,204,.15);}
 .tb.di-t.on{background:linear-gradient(135deg,rgba(255,96,192,.12),rgba(180,0,100,.06));color:var(--pr);border-color:var(--pr);}
 .tb.es-t.on{background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(180,120,0,.06));color:var(--go);border-color:var(--go);}
 .pg{display:none;animation:fi .3s ease;}.pg.on{display:block;}
@@ -147,7 +148,7 @@ tr:hover td{background:rgba(0,200,255,.03);}
 <div class="app">
 <div class="hdr">
   <div class="logo">LOTO 2026 PRO MAX</div>
-  <div class="sub">GEORGIA · FLORIDA · NEW YORK — 1,496 SORTEOS VERIFICADOS</div>
+  <div class="sub">GEORGIA · FLORIDA · NEW YORK — <span id="subCount">1,537</span> SORTEOS VERIFICADOS</div>
   <div class="clk" id="clk">--</div>
   <div class="sbar" id="sbar"></div>
 </div>
@@ -155,11 +156,10 @@ tr:hover td{background:rgba(0,200,255,.03);}
   <button class="tb on" data-tab="hoy">💡 Hoy</button>
   <button class="tb" data-tab="prono">🎯 Pronósticos</button>
   <button class="tb mc-t" data-tab="mc">🎲 Monte Carlo</button>
-  <button class="tb di-t" data-tab="diario">👁 Diario</button>
   <button class="tb es-t" data-tab="est">📊 Estrategia</button>
+  <button class="tb rend-t" data-tab="rend">📈 Rendimiento</button>
   <button class="tb" data-tab="hist">📜 Historial</button>
   <button class="tb" data-tab="act">🔄 Actualizar</button>
-  <button class="tb" data-tab="apr">📚 Bitácora</button>
 </div>
 
 <div id="hoy" class="pg on"><div class="card"><div class="ctit" id="hoyTit">💡 ¿QUÉ HAGO HOY?</div><div id="cHoy"></div></div></div>
@@ -189,20 +189,7 @@ tr:hover td{background:rgba(0,200,255,.03);}
   </div>
 </div>
 
-<div id="diario" class="pg">
-  <div class="card">
-    <div class="ctit pr">🔮 PROMESAS 2ª/3ª→1ª MISMO DÍA <span class="pr-live">LIVE</span></div>
-    <div style="background:rgba(255,96,192,.05);border:1px solid rgba(255,96,192,.18);border-radius:10px;padding:11px;margin-bottom:11px;font-size:.76rem;color:#ff90c8;line-height:1.6;">
-      💡 Ingresa números que ya salieron hoy en 2ª o 3ª. El sistema busca en 1,496 sorteos cuáles tienen historial de caer en 1ª el mismo día.
-    </div>
-    <div class="pr-grid" id="prGrid"></div>
-    <div style="display:flex;gap:9px;margin:10px 0;flex-wrap:wrap;">
-      <button class="btn-pr" id="btnPR">👁 Analizar</button>
-      <button class="btn-o" id="btnPRClr">🧹 Limpiar</button>
-    </div>
-    <div id="prRes"></div>
-  </div>
-</div>
+<div id="rend" class="pg"><div class="card"><div class="ctit" style="color:var(--mc);">📈 RENDIMIENTO — ANÁLISIS AUTOMÁTICO COMPLETO</div><div id="cRend"></div></div></div>
 
 <div id="est" class="pg">
   <div class="card">
@@ -242,12 +229,6 @@ tr:hover td{background:rgba(0,200,255,.03);}
   </div>
 </div>
 
-<div id="apr" class="pg">
-  <div class="card">
-    <div class="ctit">📚 BITÁCORA DE APRENDIZAJE</div>
-    <div id="cApr"></div>
-  </div>
-</div>
 </div>
 
 <script>
@@ -1770,7 +1751,28 @@ const DB=[
   {fecha:"2026-05-12",loteria:"NY",horario:"14:30",p1:"96",p2:"57",p3:"57"},
   {fecha:"2026-05-12",loteria:"GEORGIA",horario:"19:00",p1:"59",p2:"05",p3:"11"},
   {fecha:"2026-05-12",loteria:"FLORIDA",horario:"21:50",p1:"47",p2:"34",p3:"78"},
-  {fecha:"2026-05-12",loteria:"NY",horario:"22:30",p1:"46",p2:"24",p3:"00"}
+  {fecha:"2026-05-12",loteria:"NY",horario:"22:30",p1:"46",p2:"24",p3:"00"},
+  {fecha:"2026-05-13",loteria:"GEORGIA",horario:"12:30",p1:"49",p2:"80",p3:"58"},
+  {fecha:"2026-05-13",loteria:"FLORIDA",horario:"13:30",p1:"89",p2:"05",p3:"12"},
+  {fecha:"2026-05-13",loteria:"NY",horario:"14:30",p1:"03",p2:"08",p3:"84"},
+  {fecha:"2026-05-13",loteria:"GEORGIA",horario:"19:00",p1:"56",p2:"53",p3:"87"},
+  {fecha:"2026-05-13",loteria:"FLORIDA",horario:"21:50",p1:"16",p2:"18",p3:"81"},
+  {fecha:"2026-05-13",loteria:"NY",horario:"22:30",p1:"65",p2:"22",p3:"16"},
+  {fecha:"2026-05-13",loteria:"GEORGIA",horario:"23:30",p1:"40",p2:"47",p3:"94"},
+  {fecha:"2026-05-14",loteria:"GEORGIA",horario:"12:30",p1:"90",p2:"06",p3:"31"},
+  {fecha:"2026-05-14",loteria:"FLORIDA",horario:"13:30",p1:"24",p2:"69",p3:"67"},
+  {fecha:"2026-05-14",loteria:"NY",horario:"14:30",p1:"13",p2:"36",p3:"91"},
+  {fecha:"2026-05-14",loteria:"GEORGIA",horario:"19:00",p1:"40",p2:"94",p3:"67"},
+  {fecha:"2026-05-14",loteria:"FLORIDA",horario:"21:50",p1:"54",p2:"28",p3:"44"},
+  {fecha:"2026-05-14",loteria:"NY",horario:"22:30",p1:"28",p2:"70",p3:"17"},
+  {fecha:"2026-05-14",loteria:"GEORGIA",horario:"23:30",p1:"92",p2:"54",p3:"13"},
+  {fecha:"2026-05-15",loteria:"GEORGIA",horario:"12:30",p1:"44",p2:"98",p3:"38"},
+  {fecha:"2026-05-15",loteria:"FLORIDA",horario:"13:30",p1:"00",p2:"43",p3:"08"},
+  {fecha:"2026-05-15",loteria:"NY",horario:"14:30",p1:"05",p2:"36",p3:"16"},
+  {fecha:"2026-05-15",loteria:"GEORGIA",horario:"19:00",p1:"37",p2:"51",p3:"34"},
+  {fecha:"2026-05-15",loteria:"FLORIDA",horario:"21:50",p1:"82",p2:"80",p3:"72"},
+  {fecha:"2026-05-15",loteria:"NY",horario:"22:30",p1:"69",p2:"41",p3:"58"},
+  {fecha:"2026-05-15",loteria:"GEORGIA",horario:"23:30",p1:"32",p2:"21",p3:"79"}
 ];
 
 // ══════════════════════════════════════════
@@ -2608,13 +2610,366 @@ function renderDiario(){
 }
 
 
+// ══════════════════════════════════════════
+// RENDIMIENTO — Motor de análisis automático
+// Se recalcula cada vez que se actualiza un sorteo
+// ══════════════════════════════════════════
+function calcularRendimiento(){
+  var t=crn();
+  if(t.length<50)return null;
+
+  var DIAS2=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var SLOTS=[
+    {lot:'GEORGIA',h:'12:30',lb:'Georgia 12:30 PM'},
+    {lot:'FLORIDA',h:'13:30',lb:'Florida 1:30 PM'},
+    {lot:'NY',     h:'14:30',lb:'NY 2:30 PM'},
+    {lot:'GEORGIA',h:'19:00',lb:'Georgia 7:00 PM'},
+    {lot:'FLORIDA',h:'21:50',lb:'Florida 9:50 PM'},
+    {lot:'NY',     h:'22:30',lb:'NY 10:30 PM'},
+    {lot:'GEORGIA',h:'23:30',lb:'Georgia 11:30 PM'}
+  ];
+
+  // ══ 1. ARRASTRE POR NÚMERO ══
+  var arrMap={};
+  for(var i=0;i<t.length;i++){
+    ['p2','p3'].forEach(function(p){
+      var num=t[i][p];
+      if(!arrMap[num])arrMap[num]={t:0,v:0,slots:{}};
+      arrMap[num].t++;
+      for(var j=i+1;j<t.length&&j<=i+25;j++){
+        var dd=(new Date(t[j].fecha+'T12:00:00')-new Date(t[i].fecha+'T12:00:00'))/86400000;
+        if(dd>6)break;
+        if(t[j].p1===num){
+          arrMap[num].v++;
+          var sk=t[j].loteria+'|'+t[j].horario;
+          arrMap[num].slots[sk]=(arrMap[num].slots[sk]||0)+1;
+          break;
+        }
+      }
+    });
+  }
+
+  // ══ 2. CICLOS POR NÚMERO ══
+  var ciclos={};
+  for(var n=0;n<100;n++){
+    var ns=n.toString().padStart(2,'0');
+    var idx=t.map(function(s,i){return s.p1===ns?i:-1;}).filter(function(i){return i>=0;});
+    if(idx.length>=3){
+      var gaps=[];
+      for(var gi=1;gi<idx.length;gi++)gaps.push(idx[gi]-idx[gi-1]);
+      var avg=gaps.reduce(function(a,b){return a+b;},0)/gaps.length;
+      var min=Math.min.apply(null,gaps);
+      var max=Math.max.apply(null,gaps);
+      var dist=t.length-1-idx[idx.length-1];
+      ciclos[ns]={avg:parseFloat(avg.toFixed(1)),min:min,max:max,
+        last:idx[idx.length-1],dist:dist,pct:Math.round(dist/avg*100),count:idx.length,
+        tipo:avg<=12?'corto':avg<=30?'mediano':'largo'};
+    }
+  }
+
+  // ══ 3. PERCUTORES ══
+  // Número que aparece repetidamente en 2ª/3ª sin llegar a 1ª (rebotando)
+  var percutores=[];
+  for(var n=0;n<100;n++){
+    var ns=n.toString().padStart(2,'0');
+    var arr=arrMap[ns];
+    if(!arr||arr.t<10)continue;
+    var tasa=arr.v/arr.t*100;
+    var freq23=arr.t;
+    var freq1=t.filter(function(s){return s.p1===ns;}).length;
+    // Percutor: sale mucho en 2ª/3ª pero poco en 1ª
+    if(freq23>=15&&tasa<15&&freq1<10){
+      percutores.push({num:ns,freq23:freq23,freq1:freq1,tasa:Math.round(tasa)});
+    }
+  }
+  percutores.sort(function(a,b){return b.freq23-a.freq23;});
+
+  // ══ 4. IMPÁS ACTIVOS ══
+  var fechas=[...new Set(t.map(function(s){return s.fecha;}))].sort();
+  var uf=fechas[fechas.length-1];
+  var vent=fechas.slice(Math.max(0,fechas.length-3));
+  var impasActivos=[];
+  var vistosEn23=new Map();
+  t.filter(function(s){return vent.includes(s.fecha);}).forEach(function(s){
+    ['p2','p3'].forEach(function(p,pi){
+      var v=s[p];if(!v)return;
+      if(!vistosEn23.has(v)||vistosEn23.get(v).fecha<s.fecha)
+        vistosEn23.set(v,{fecha:s.fecha,h:s.horario,lot:s.loteria,pos:pi===0?'2ª':'3ª'});
+    });
+  });
+  vistosEn23.forEach(function(ult,num){
+    var arr=arrMap[num];if(!arr||arr.t<8)return;
+    var tasa=Math.round(arr.v/arr.t*100);if(tasa<15)return;
+    // Calcular impás actual
+    var idxUlt=t.findIndex(function(s){return s.fecha===ult.fecha&&s.loteria===ult.lot&&s.horario===ult.h;});
+    if(idxUlt<0)return;
+    var sp=0,reap=0,consumido=false;
+    for(var j=idxUlt+1;j<t.length;j++){
+      if(t[j].p1===num){consumido=true;break;}
+      if(t[j].p2===num||t[j].p3===num)reap++;else sp++;
+    }
+    if(consumido)return;
+    var cic=ciclos[num];
+    var impasPct=cic&&cic.avg>0?Math.round(sp/cic.avg*100):0;
+    // Destinos top
+    var dTop=Object.entries(arr.slots||{}).sort(function(a,b){return b[1]-a[1];}).slice(0,2);
+    impasActivos.push({num:num,tasa:tasa,sp:sp,reap:reap,impasPct:impasPct,
+      ult:ult,cic:cic,dTop:dTop,freq:t.filter(function(s){return s.p1===num;}).length});
+  });
+  impasActivos.sort(function(a,b){return b.tasa-a.tasa;});
+
+  // ══ 5. FALSOS POSITIVOS ══
+  // Números que entraron en ventana pero NO cayeron en los 7 siguientes (últimos 30 días)
+  var falsos=[];
+  var fechasRec=fechas.slice(Math.max(0,fechas.length-30));
+  for(var fi=3;fi<fechasRec.length-7;fi++){
+    var ventF=fechasRec.slice(fi-3,fi);
+    var sigF=fechasRec.slice(fi,fi+7);
+    var cm2=new Map();
+    t.filter(function(s){return ventF.includes(s.fecha);}).forEach(function(s){
+      ['p2','p3'].forEach(function(p){
+        var v=s[p];if(!v)return;
+        if(!cm2.has(v))cm2.set(v,{count:0});
+        cm2.get(v).count++;
+      });
+    });
+    cm2.forEach(function(_,num){
+      var arr2=arrMap[num];if(!arr2||arr2.t<8)return;
+      if(arr2.v/arr2.t*100<20)return;
+      var cayo=t.filter(function(s){return sigF.includes(s.fecha)&&s.p1===num;}).length>0;
+      if(!cayo)falsos.push(num);
+    });
+  }
+  var falsosCount={};
+  falsos.forEach(function(n){falsosCount[n]=(falsosCount[n]||0)+1;});
+  var topFalsos=Object.entries(falsosCount).sort(function(a,b){return b[1]-a[1];}).slice(0,5);
+
+  // ══ 6. PATRONES NUEVOS (detectados automáticamente) ══
+  var patronesNuevos=[];
+  // Patrón: número que cayó 2+ veces seguidas en el mismo slot
+  var slotConsec={};
+  for(var i=1;i<t.length;i++){
+    var key=t[i].loteria+'|'+t[i].horario;
+    if(t[i].p1===t[i-1].p1){
+      if(!slotConsec[key])slotConsec[key]={};
+      slotConsec[key][t[i].p1]=(slotConsec[key][t[i].p1]||0)+1;
+    }
+  }
+  Object.entries(slotConsec).forEach(function(kv){
+    var slot=kv[0];var nums=kv[1];
+    Object.entries(nums).filter(function(nv){return nv[1]>=2;}).forEach(function(nv){
+      patronesNuevos.push({tipo:'consecutivo',desc:nv[0]+' cayó '+nv[1]+'x consecutivo en '+slot,num:nv[0],fuerza:nv[1]});
+    });
+  });
+  // Patrón: número que sale siempre después de otro en 2ª/3ª
+  patronesNuevos.sort(function(a,b){return b.fuerza-a.fuerza;});
+
+  // ══ 7. ESTADO POR LOTERÍA ══
+  var estadoLot={};
+  ['GEORGIA','FLORIDA','NY'].forEach(function(lot){
+    var recLot=t.filter(function(s){return s.loteria===lot;});
+    var ultimos=recLot.slice(-21); // últimos 21 sorteos
+    var freq={};
+    ultimos.forEach(function(s){freq[s.p1]=(freq[s.p1]||0)+1;});
+    var topRec=Object.entries(freq).sort(function(a,b){return b[1]-a[1];}).slice(0,3);
+    // ¿Está caliente o fría?
+    var gfreq={};
+    recLot.forEach(function(s){gfreq[s.p1]=(gfreq[s.p1]||0)+1;});
+    var esperado=recLot.length/100;
+    var activos=topRec.filter(function(nv){return nv[1]>esperado*1.5;}).length;
+    estadoLot[lot]={topRec:topRec,activos:activos,total:recLot.length,
+      estado:activos>=2?'ACTIVA':activos===1?'NORMAL':'FRÍA'};
+  });
+
+  // ══ 8. MONTE CARLO PROPIO DE RENDIMIENTO ══
+  // Basado solo en arrastre + ciclo, sin frecuencia global
+  var WR=new Array(100).fill(0.001);
+  for(var n=0;n<100;n++){
+    var ns=n.toString().padStart(2,'0');
+    var arr=arrMap[ns];
+    if(arr&&arr.t>=10)WR[n]+=arr.v/arr.t*5;
+    var cic=ciclos[ns];
+    if(cic&&cic.avg>0){
+      var ratio=cic.dist/cic.avg;
+      if(ratio>=0.6&&ratio<=1.8)WR[n]+=ratio*3;
+    }
+    // Bonus si está en ventana activa
+    if(vistosEn23.has(ns))WR[n]+=2;
+  }
+  var topMCR=WR.map(function(w,i){return{num:i.toString().padStart(2,'0'),w:w};})
+    .sort(function(a,b){return b.w-a.w;}).slice(0,5);
+
+  return{arrMap:arrMap,ciclos:ciclos,percutores:percutores.slice(0,5),
+    impasActivos:impasActivos.slice(0,6),topFalsos:topFalsos,
+    patronesNuevos:patronesNuevos.slice(0,4),estadoLot:estadoLot,
+    topMCR:topMCR,fechaCalc:uf,total:t.length};
+}
+
+function renderRendimiento(){
+  var t=crn();
+  var fp=getFP();
+  var R=calcularRendimiento();
+  if(!R){document.getElementById('cRend').innerHTML='<div class="wbox">Insuficientes datos.</div>';return;}
+
+  var lcMap={GEORGIA:'ga',FLORIDA:'fl',NY:'ny'};
+  var DIAS2=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var out='';
+
+  // ══ ESTADO DE LOTERÍAS ══
+  out+='<div style="background:rgba(0,10,25,.7);border:1px solid rgba(0,200,255,.15);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--ac);font-weight:700;letter-spacing:1px;margin-bottom:10px;">📡 ESTADO ACTUAL DE CADA LOTERÍA</div>';
+  out+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">';
+  ['GEORGIA','FLORIDA','NY'].forEach(function(lot){
+    var e=R.estadoLot[lot];
+    var col=e.estado==='ACTIVA'?'var(--gr)':e.estado==='NORMAL'?'var(--or)':'var(--mu)';
+    var bg=e.estado==='ACTIVA'?'rgba(0,255,136,.07)':e.estado==='NORMAL'?'rgba(255,153,68,.05)':'rgba(90,128,153,.04)';
+    out+='<div style="background:'+bg+';border:1px solid '+col+';border-radius:10px;padding:10px;text-align:center;">';
+    out+='<span class="lp '+lcMap[lot]+'">'+lot+'</span>';
+    out+='<div style="font-family:var(--orb),monospace;font-size:.75rem;font-weight:700;color:'+col+';margin:5px 0;">'+e.estado+'</div>';
+    out+='<div style="font-size:.6rem;color:var(--mu);font-family:var(--mono),monospace;">Top reciente:<br>';
+    out+=e.topRec.map(function(nv){return'<span style="color:var(--go);">'+nv[0]+'</span>('+nv[1]+'x)';}).join(' ');
+    out+='</div></div>';
+  });
+  out+='</div></div>';
+
+  // ══ IMPÁS ACTIVOS ══
+  out+='<div style="background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.25);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--go);font-weight:700;letter-spacing:1px;margin-bottom:10px;">⚡ IMPÁS ACTIVOS — EN TRÁNSITO AHORA</div>';
+  if(R.impasActivos.length===0){
+    out+='<div style="color:var(--mu);font-size:.75rem;">Sin candidatos activos ahora mismo.</div>';
+  } else {
+    R.impasActivos.forEach(function(c){
+      var col=c.impasPct>=80?'var(--gr)':c.impasPct>=50?'var(--or)':'var(--mu)';
+      var accion=c.impasPct>=80?'✅ JUGAR':c.impasPct>=50?'⏳ ESPERAR':'⌛ ESPERANDO';
+      out+='<div style="background:rgba(0,10,25,.6);border:1px solid rgba(255,215,0,.15);border-radius:10px;padding:10px;margin-bottom:7px;">';
+      out+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">';
+      out+='<span style="font-family:var(--orb),monospace;font-size:1.4rem;font-weight:900;color:'+col+';">'+c.num+'</span>';
+      out+='<div>';
+      out+='<div style="font-size:.75rem;font-weight:700;color:'+col+';">'+accion+'</div>';
+      out+='<div style="font-size:.62rem;color:var(--mu);font-family:var(--mono),monospace;">Arr: '+c.tasa+'% · Silencio: '+c.sp+' sort. · Ciclo: '+(c.cic?c.cic.avg+' prom':'?')+'</div>';
+      out+='</div>';
+      out+='<div style="margin-left:auto;background:rgba(0,10,20,.7);border-radius:6px;padding:4px 10px;text-align:center;">';
+      out+='<div style="font-family:var(--orb),monospace;font-size:.9rem;font-weight:700;color:'+col+';">'+c.impasPct+'%</div>';
+      out+='<div style="font-size:.55rem;color:var(--mu);">del ciclo</div>';
+      out+='</div></div>';
+      // Barra de ciclo
+      var bw=Math.min(c.impasPct,100);
+      out+='<div style="background:rgba(0,10,20,.6);border-radius:4px;height:5px;overflow:hidden;margin-bottom:5px;">';
+      out+='<div style="height:100%;background:'+col+';width:'+bw+'%;border-radius:4px;"></div></div>';
+      if(c.dTop.length>0){
+        out+='<div style="font-size:.6rem;color:var(--mu);font-family:var(--mono),monospace;">🎯 Destino histórico: ';
+        out+=c.dTop.slice(0,2).map(function(kv){return'<span style="color:var(--ac);">'+kv[0]+'</span>('+kv[1]+'x)';}).join(' · ');
+        out+='</div>';
+      }
+      out+='</div>';
+    });
+  }
+  out+='</div>';
+
+  // ══ CICLOS ══
+  out+='<div style="background:rgba(176,96,255,.05);border:1px solid rgba(176,96,255,.25);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--pu);font-weight:700;letter-spacing:1px;margin-bottom:10px;">🔄 CICLOS VENCIDOS — SIN AVISAR (frecuentes)</div>';
+  var vencidos=[];
+  for(var n=0;n<100;n++){
+    var ns=n.toString().padStart(2,'0');
+    var cic=R.ciclos[ns];if(!cic)continue;
+    if(cic.pct<100)continue;
+    var freq=t.filter(function(s){return s.p1===ns;}).length;
+    if(freq<15)continue;
+    vencidos.push({num:ns,pct:cic.pct,dist:cic.dist,avg:cic.avg,tipo:cic.tipo,freq:freq});
+  }
+  vencidos.sort(function(a,b){return b.freq-a.freq||b.pct-a.pct;}).slice(0,6).forEach(function(v,i){
+    var col=v.pct>=200?'var(--rd)':v.pct>=150?'var(--or)':'var(--go)';
+    out+='<div style="display:flex;align-items:center;gap:8px;background:rgba(0,10,25,.5);border-radius:8px;padding:7px 10px;margin-bottom:5px;">';
+    out+='<span style="font-family:var(--orb),monospace;font-size:1.1rem;font-weight:700;color:'+col+';min-width:32px;">'+v.num+'</span>';
+    out+='<div style="flex:1;">';
+    out+='<div style="background:rgba(0,10,20,.5);border-radius:3px;height:4px;overflow:hidden;margin-bottom:3px;">';
+    out+='<div style="height:100%;background:'+col+';width:'+Math.min(v.pct,100)+'%;border-radius:3px;"></div></div>';
+    out+='<div style="font-size:.6rem;color:var(--mu);font-family:var(--mono),monospace;">'+v.pct+'% vencido · ciclo '+v.tipo+' (~'+v.avg+') · '+v.freq+'x global</div>';
+    out+='</div>';
+    out+='<span class="st '+(v.pct>=200?'rd':v.pct>=150?'or':'go')+'" style="font-size:.6rem;">'+v.pct+'%</span>';
+    out+='</div>';
+  });
+  out+='</div>';
+
+  // ══ PERCUTORES ══
+  out+='<div style="background:rgba(255,96,192,.05);border:1px solid rgba(255,96,192,.2);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--pr);font-weight:700;letter-spacing:1px;margin-bottom:8px;">🔴 PERCUTORES — REBOTAN EN 2ª/3ª SIN LLEGAR A 1ª</div>';
+  if(R.percutores.length===0){
+    out+='<div style="font-size:.72rem;color:var(--mu);">Sin percutores detectados.</div>';
+  } else {
+    out+='<div style="display:flex;flex-wrap:wrap;gap:5px;">';
+    R.percutores.forEach(function(p){
+      out+='<div style="background:rgba(255,64,96,.06);border:1px solid rgba(255,64,96,.2);border-radius:8px;padding:6px 10px;text-align:center;">';
+      out+='<div style="font-family:var(--orb),monospace;font-size:1rem;font-weight:700;color:var(--rd);">'+p.num+'</div>';
+      out+='<div style="font-size:.58rem;color:var(--mu);font-family:var(--mono),monospace;">'+p.freq23+'x en 2ª/3ª<br>'+p.freq1+'x en 1ª</div>';
+      out+='</div>';
+    });
+    out+='</div>';
+    out+='<div style="font-size:.65rem;color:var(--mu);margin-top:6px;font-family:var(--mono),monospace;">⚠️ Si aparecen en 2ª/3ª hoy — NO seguirlos, históricamente no llegan a 1ª.</div>';
+  }
+  out+='</div>';
+
+  // ══ FALSOS POSITIVOS ══
+  out+='<div style="background:rgba(255,153,68,.05);border:1px solid rgba(255,153,68,.2);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--or);font-weight:700;letter-spacing:1px;margin-bottom:8px;">⚠️ FALSOS POSITIVOS RECIENTES (últimos 30 días)</div>';
+  if(R.topFalsos.length===0){
+    out+='<div style="font-size:.72rem;color:var(--mu);">Sin patrones de falso positivo detectados.</div>';
+  } else {
+    out+='<div style="display:flex;flex-wrap:wrap;gap:5px;">';
+    R.topFalsos.forEach(function(nv){
+      out+='<div style="background:rgba(255,153,68,.07);border:1px solid rgba(255,153,68,.25);border-radius:8px;padding:6px 10px;text-align:center;">';
+      out+='<div style="font-family:var(--orb),monospace;font-size:1rem;font-weight:700;color:var(--or);">'+nv[0]+'</div>';
+      out+='<div style="font-size:.58rem;color:var(--mu);font-family:var(--mono),monospace;">falló '+nv[1]+'x</div>';
+      out+='</div>';
+    });
+    out+='</div>';
+    out+='<div style="font-size:.65rem;color:var(--mu);margin-top:6px;font-family:var(--mono),monospace;">Entraron como candidatos pero no cayeron. Tratar con precaución.</div>';
+  }
+  out+='</div>';
+
+  // ══ PATRONES NUEVOS ══
+  if(R.patronesNuevos.length>0){
+    out+='<div style="background:rgba(0,255,204,.05);border:1px solid rgba(0,255,204,.25);border-radius:14px;padding:14px;margin-bottom:12px;">';
+    out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--mc);font-weight:700;letter-spacing:1px;margin-bottom:8px;">🆕 PATRONES DETECTADOS AUTOMÁTICAMENTE</div>';
+    R.patronesNuevos.forEach(function(p){
+      out+='<div style="background:rgba(0,10,25,.6);border-left:3px solid var(--mc);border-radius:6px;padding:7px 10px;margin-bottom:5px;font-size:.7rem;font-family:var(--mono),monospace;color:var(--tx);">'+p.desc+'</div>';
+    });
+    out+='</div>';
+  }
+
+  // ══ MONTE CARLO PROPIO ══
+  out+='<div style="background:linear-gradient(135deg,rgba(0,255,204,.07),rgba(0,100,150,.03));border:2px solid rgba(0,255,204,.35);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  out+='<div style="font-family:var(--orb),monospace;font-size:.7rem;color:var(--mc);font-weight:700;letter-spacing:1px;margin-bottom:10px;">🎲 MONTE CARLO DE RENDIMIENTO — Arrastre + Ciclo puro</div>';
+  out+='<div style="font-size:.65rem;color:var(--mu);font-family:var(--mono),monospace;margin-bottom:8px;">Basado exclusivamente en arrastre histórico y madurez de ciclo. Sin frecuencia global.</div>';
+  out+='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">';
+  var mcCols=['var(--mc)','var(--ac)','var(--go)','var(--pu)','var(--or)'];
+  var mcLbls=['🥇','🥈','🥉','4°','5°'];
+  R.topMCR.forEach(function(r,i){
+    var arr=R.arrMap[r.num];
+    var tas=arr&&arr.t>=10?Math.round(arr.v/arr.t*100):0;
+    var cic=R.ciclos[r.num];
+    out+='<div style="background:rgba(0,10,25,.8);border:1px solid rgba(0,200,255,.12);border-radius:10px;padding:8px;text-align:center;">';
+    out+='<div style="font-size:.6rem;color:'+mcCols[i]+';margin-bottom:2px;">'+mcLbls[i]+'</div>';
+    out+='<div style="font-family:var(--orb),monospace;font-size:1.3rem;font-weight:900;color:'+mcCols[i]+';">'+r.num+'</div>';
+    out+='<div style="font-size:.55rem;color:var(--mu);font-family:var(--mono),monospace;margin-top:2px;">Arr:'+tas+'%<br>'+(cic?cic.pct+'% ciclo':'')+'</div>';
+    out+='</div>';
+  });
+  out+='</div></div>';
+
+  // ══ PIE ══
+  out+='<div style="font-size:.62rem;color:var(--mu);font-family:var(--mono),monospace;text-align:center;padding:8px;">Calculado con '+R.total+' sorteos · Última actualización: '+R.fechaCalc+'</div>';
+
+  document.getElementById('cRend').innerHTML=out;
+}
+
 function renderHist(){
   const fLv=document.getElementById('fL')?.value||'';
   const fFv=document.getElementById('fF')?.value||'';
   let d=crn().reverse();
   if(fLv)d=d.filter(s=>s.loteria===fLv);
   if(fFv)d=d.filter(s=>s.fecha===fFv);
-  document.getElementById('hTotal').textContent=sorteos.length;
+  document.getElementById('hTotal').textContent=sorteos.length;var sc=document.getElementById('subCount');if(sc)sc.textContent=sorteos.length.toLocaleString();
   document.getElementById('hBody').innerHTML=d.slice(0,600).map(s=>'<tr><td>'+s.fecha+'</td><td>'+bL(s.loteria)+'</td><td style="font-family:var(--mono),monospace;">'+fH(s.horario)+'</td><td><strong style="color:var(--go);font-family:var(--mono),monospace;">'+s.p1+'</strong></td><td style="font-family:var(--mono),monospace;">'+s.p2+'</td><td style="font-family:var(--mono),monospace;">'+s.p3+'</td></tr>').join('')||'<tr><td colspan="6" style="text-align:center;color:var(--mu)">Sin resultados</td></tr>';
 }
 
@@ -2711,10 +3066,9 @@ function guardarYRecalcular(){
     }
     sv();
     // Recalcular TODO inmediatamente
-    renderSbar();renderHoy();renderProno();renderHist();renderForm();renderEst();
+    renderSbar();renderHoy();renderProno();renderHist();renderForm();renderEst();if(document.getElementById('rend').classList.contains('on'))renderRendimiento();
     // Si promesas está abierta, recalcular también
-    if(document.getElementById('diario').classList.contains('on'))renderDiario();
-    showFlash('✅ '+ag+' SORTEO'+(ag>1?'S':'')+' GUARDADO'+(ag>1?'S':''));
+    var sc3=document.getElementById('subCount');if(sc3)sc3.textContent=sorteos.length.toLocaleString();showFlash('✅ '+ag+' SORTEO'+(ag>1?'S':'')+' GUARDADO'+(ag>1?'S':''));
     document.getElementById('saveInfo').innerHTML='✅ Guardados: '+nuevos.join(' · ')+'<br>Sistema recalculado con '+sorteos.length+' sorteos totales.';
   }else{
     showFlash('⚠️ SIN DATOS NUEVOS');
@@ -2755,9 +3109,10 @@ document.querySelectorAll('.tb').forEach(btn=>{
     if(tab==='prono')renderProno();
     if(tab==='hist')renderHist();
     if(tab==='act')renderForm();
-    if(tab==='apr')renderApr();
+    
     if(tab==='est')renderEst();
-    if(tab==='diario')renderDiario();
+    if(tab==='rend')renderRendimiento();
+    
     if(tab==='mc')document.getElementById('mcRes').innerHTML='<div class="wbox">⚙️ Configura filtros y presiona ▶ Simular 20,000</div>';
   });
 });
@@ -2766,8 +3121,7 @@ document.getElementById('btnS').addEventListener('click',guardarYRecalcular);
 document.getElementById('btnC').addEventListener('click',renderForm);
 document.getElementById('btnMC').addEventListener('click',runMC);
 document.getElementById('btnMCR').addEventListener('click',()=>{mcRunning=false;document.getElementById('mcProg').style.display='none';document.getElementById('mcRes').innerHTML='';});
-document.getElementById('btnPR').addEventListener('click',renderDiario);
-document.getElementById('btnPRClr').addEventListener('click',function(){for(var i=0;i<14;i++){var el=document.getElementById('pr_'+i);if(el)el.value='';}renderDiario();});
+
 
 setInterval(()=>{
   const d=new Date();
@@ -2777,8 +3131,7 @@ setInterval(()=>{
 // ══════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════
-buildPrGrid();
-renderSbar();renderHoy();renderProno();renderHist();renderForm();renderEst();renderApr();
+renderSbar();renderHoy();renderProno();renderHist();renderForm();renderEst();
 document.getElementById('hTotal').textContent=sorteos.length;
 document.getElementById('mcRes').innerHTML='<div class="wbox">⚙️ Configura los filtros y presiona ▶ Simular 20,000 para comenzar.</div>';
 </script>
