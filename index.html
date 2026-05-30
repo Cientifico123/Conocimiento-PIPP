@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LOTO 2026 PRO MAX · 4 Monte Carlo</title>
+<title>LOTO 2026 PRO MAX · 8 Ventanas</title>
 <style>
 :root{--mono:"Share Tech Mono",monospace;--orb:"Orbitron",monospace;--exo:"Exo 2",sans-serif;--bg:#020d18;--card:rgba(4,20,38,0.96);--b:rgba(0,200,255,0.13);--ac:#00c8ff;--go:#ffd700;--gr:#00ff88;--rd:#ff4060;--pu:#b060ff;--or:#ff9944;--tx:#d0eaff;--mu:#5a8099;--mc:#00ffcc;--pr:#ff60c0;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -24,7 +24,6 @@ body{background:var(--bg);background-image:radial-gradient(ellipse at 10% 0%,rgb
 .tb:hover{color:var(--ac);border-color:var(--ac);}
 .tb.on{background:linear-gradient(135deg,rgba(0,200,255,.14),rgba(0,100,200,.07));color:var(--ac);border-color:var(--ac);box-shadow:0 0 12px rgba(0,200,255,.15);}
 .tb.mc-t.on{background:linear-gradient(135deg,rgba(0,255,204,.12),rgba(0,150,120,.06));color:var(--mc);border-color:var(--mc);}
-.tb.mc2-t.on{background:linear-gradient(135deg,rgba(0,255,204,.12),rgba(0,150,120,.06));color:var(--mc);border-color:var(--mc);}
 .pg{display:none;animation:fi .3s ease;}
 .pg.on{display:block;}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -77,14 +76,6 @@ tr:hover td{background:rgba(0,200,255,.03);}
 .es-s{font-size:.6rem;font-family:var(--mono),monospace;color:var(--mu);margin-top:3px;}
 .mc-bar-wrap{background:rgba(0,20,30,.8);border-radius:6px;height:12px;overflow:hidden;margin:8px 0;}
 .mc-bar{height:100%;background:linear-gradient(90deg,#00ffcc,#00aaff);border-radius:6px;transition:width .3s ease;width:0%;}
-.mc2-card{border-radius:14px;padding:14px;margin-bottom:10px;}
-.mc2-card.r1{background:linear-gradient(135deg,rgba(0,255,204,.1),rgba(0,150,120,.05));border:2px solid rgba(0,255,204,.45);}
-.mc2-card.r2{background:rgba(0,200,255,.06);border:1px solid rgba(0,200,255,.3);}
-.mc2-card.r3{background:rgba(176,96,255,.05);border:1px solid rgba(176,96,255,.25);}
-.mc-num{font-family:var(--orb),monospace;font-weight:900;font-size:2rem;display:inline-block;padding:3px 12px;border-radius:10px;}
-.mc-num.r1{color:var(--mc);text-shadow:0 0 20px rgba(0,255,204,.4);background:rgba(0,255,204,.05);border:1px solid rgba(0,255,204,.25);}
-.mc-num.r2{color:var(--ac);background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.2);}
-.mc-num.r3{color:var(--pu);background:rgba(176,96,255,.05);border:1px solid rgba(176,96,255,.2);}
 .mc-cfg{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
 .mc-cfg select{background:rgba(0,10,30,.8);border:1px solid var(--b);color:var(--tx);padding:6px 9px;border-radius:6px;font-size:.75rem;font-family:var(--mono),monospace;}
 .saved-flash{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,255,136,.15);border:2px solid rgba(0,255,136,.5);color:var(--gr);padding:10px 22px;border-radius:50px;font-family:var(--orb),monospace;font-size:.8rem;font-weight:700;letter-spacing:2px;z-index:999;animation:flashIn .3s ease;pointer-events:none;}
@@ -98,35 +89,23 @@ tr:hover td{background:rgba(0,200,255,.03);}
 <div class="tabs">
 <button class="tb on" data-tab="hoy">💡 Hoy</button>
 <button class="tb" data-tab="prono">🎯 Pronósticos</button>
-<button class="tb mc-t" data-tab="mc">🎲 Monte Carlo</button>
-<button class="tb mc2-t" data-tab="mc2">🎲 MC2</button>
+<button class="tb mc-t" data-tab="mc">🎲 MC1</button>
+<button class="tb mc-t" data-tab="mc2">🎲 MC2</button>
+<button class="tb mc-t" data-tab="mc3">🎲 MC3</button>
+<button class="tb mc-t" data-tab="mc4">🎲 MC4</button>
 <button class="tb" data-tab="hist">📜 Historial</button>
 <button class="tb" data-tab="act">🔄 Actualizar</button>
 </div>
 
 <div id="hoy" class="pg on"><div class="card"><div class="ctit">💡 ANÁLISIS POR SORTEO — HOY</div><div id="cHoy"></div></div></div>
 <div id="prono" class="pg"><div class="card"><div class="ctit">🎯 PRONÓSTICOS DETALLADOS</div><div id="cProno"></div></div></div>
-<div id="mc" class="pg"><div class="card"><div class="ctit mc">🎲 MONTE CARLO 1 — FRECUENCIA GENERAL</div>
-<div class="mc-cfg">
-<label style="font-size:.7rem;color:var(--mu);">Lotería:</label><select id="mcL"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select>
-<label style="font-size:.7rem;color:var(--mu);">Horario:</label><select id="mcH"><option value="">Todos</option><option value="12">Georgia 12:30 PM</option><option value="13">Florida 1:30 PM</option><option value="14">NY 2:30 PM</option><option value="19">Georgia 7:00 PM</option><option value="21">Florida 9:50 PM</option><option value="22">NY 10:30 PM</option><option value="23">Georgia 11:30 PM</option></select>
-<label style="font-size:.7rem;color:var(--mu);">Día:</label><select id="mcD"><option value="">Todos</option><option value="0">Dom</option><option value="1">Lun</option><option value="2">Mar</option><option value="3">Mié</option><option value="4">Jue</option><option value="5">Vie</option><option value="6">Sáb</option></select>
-</div>
-<div style="display:flex;gap:9px;margin-bottom:13px;flex-wrap:wrap;"><button class="btn-mc" id="btnMC">▶ Simular 20,000</button><button class="btn-o" id="btnMCR">↺ Reset</button></div>
-<div id="mcProg" style="display:none;background:rgba(0,10,20,.8);border:1px solid rgba(0,255,204,.2);border-radius:12px;padding:14px;margin-bottom:12px;"><div style="font-family:var(--mono),monospace;font-size:.7rem;color:var(--mc);margin-bottom:5px;">⚙️ Simulando... <span id="mcPct">0</span>%</div><div class="mc-bar-wrap"><div class="mc-bar" id="mcBar"></div></div><div style="font-size:.63rem;color:var(--mu);font-family:var(--mono),monospace;" id="mcSt">Inicializando...</div></div>
-<div id="mcRes"></div></div></div>
-
-<div id="mc2" class="pg"><div class="card"><div class="ctit mc">🎲 MONTE CARLO 2 — PATRONES 2ª/3ª→1ª COMPROBADOS</div><div id="cMC2"><div class="wbox">Cargando análisis...</div></div></div></div>
-
+<div id="mc" class="pg"><div class="card"><div class="ctit mc">🎲 MC1 — FRECUENCIA GENERAL</div><div class="mc-cfg"><label>Lot:</label><select id="mcL1"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" onclick="simYMostrar('mc1')">▶ Simular 20k</button></div><div id="mcRes1"></div></div></div>
+<div id="mc2" class="pg"><div class="card"><div class="ctit mc">🎲 MC2 — PATRONES 2ª/3ª→1ª</div><div id="cMC2"><div class="wbox">Cargando análisis...</div></div></div></div>
+<div id="mc3" class="pg"><div class="card"><div class="ctit mc">🎲 MC3 — POR DÍA DE LA SEMANA</div><div class="mc-cfg"><label>Lot:</label><select id="mcL3"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" onclick="simYMostrar('mc3')">▶ Simular 20k</button></div><div id="mcRes3"></div></div></div>
+<div id="mc4" class="pg"><div class="card"><div class="ctit mc">🎲 MC4 — POR BLOQUE DEL MES</div><div class="mc-cfg"><label>Lot:</label><select id="mcL4"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" onclick="simYMostrar('mc4')">▶ Simular 20k</button></div><div id="mcRes4"></div></div></div>
 <div id="hist" class="pg"><div class="card"><div class="ctit">📜 HISTORIAL — <span id="hTotal"></span> sorteos</div>
-<div style="display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;">
-<select id="fL" style="background:rgba(0,10,30,.8);border:1px solid var(--b);color:var(--tx);padding:5px 8px;border-radius:6px;font-size:.76rem;"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select>
-<input type="date" id="fF" style="background:rgba(0,10,30,.8);border:1px solid var(--b);color:var(--tx);padding:5px 8px;border-radius:6px;font-size:.76rem;">
-<button class="btn-o" onclick="renderHist()" style="padding:5px 10px;font-size:.72rem;">Filtrar</button>
-<button class="btn-o" onclick="document.getElementById('fL').value='';document.getElementById('fF').value='';renderHist();" style="padding:5px 10px;font-size:.72rem;">Todo</button>
-</div>
+<div style="display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;"><select id="fL"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><input type="date" id="fF"><button class="btn-o" onclick="renderHist()">Filtrar</button><button class="btn-o" onclick="document.getElementById('fL').value='';document.getElementById('fF').value='';renderHist();">Todo</button></div>
 <div style="max-height:520px;overflow-y:auto;"><table><thead><tr><th>Fecha</th><th>Lot.</th><th>Hora</th><th>1ª</th><th>2ª</th><th>3ª</th></tr></thead><tbody id="hBody"></tbody></table></div></div></div>
-
 <div id="act" class="pg"><div class="card"><div class="ctit">🔄 ACTUALIZAR SORTEOS</div><div class="fgrid" id="fAct"></div>
 <div style="display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;"><button class="btn-g" id="btnS">💾 Guardar y Recalcular</button><button class="btn-o" id="btnC">🧹 Limpiar</button></div></div></div>
 </div>
@@ -167,6 +146,7 @@ function formatoHora(h) {
   return hora + ':' + mm + ' ' + ampm;
 }
 function diaSemana(fecha) { return new Date(fecha + 'T12:00:00').getDay(); }
+function getBloqueMes(dia) { return Math.ceil(dia / 5).toString(); }
 
 function actualizarStatusBar() {
   document.getElementById('subCount').textContent = sorteos.length;
@@ -180,7 +160,6 @@ function actualizarStatusBar() {
 setInterval(actualizarStatusBar, 1000);
 actualizarStatusBar();
 
-// ============== PRECURSORES VALIDADOS ==============
 const ESTRATEGIAS = {
   '61': { objetivo: 'GA/FL', ventana:3, combos:[['61','73','11'],['61','57','63'],['61','69','88']] },
   '73': { objetivo: 'GEORGIA', ventana:4, combos:[['73','74','18'],['73','56','76']] },
@@ -188,9 +167,8 @@ const ESTRATEGIAS = {
   '56': { objetivo: 'GEORGIA', ventana:2, combos:[['56','56','06'],['56','70','91'],['56','04','03']] },
   '16': { objetivo: 'GEORGIA', ventana:5, combos:[['16','76','20'],['16','37','96'],['16','12','38']] }
 };
-
 const ESPEJOS = {
-  '16→61': { anunciador: '16', destino: '61', ventana:3, combos:[['61','73','11'],['61','57','63'],['61','69','88']] }
+  '16→61': { anunciador: '16', destino: '61', ventana:3, combos:[['61','73','11'],['61','57','63']] }
 };
 
 function detectarSenalesParaSorteo(fechaHoraSorteo) {
@@ -204,14 +182,8 @@ function detectarSenalesParaSorteo(fechaHoraSorteo) {
     const cfg = ESTRATEGIAS[num];
     const diasRest = cfg.ventana - Math.floor((fechaSorteo - new Date(ultima.fecha)) / 86400000);
     if (diasRest <= 0) continue;
-    senales.push({
-      tipo: 'directo',
-      numero: num, fecha: ultima.fecha, loteria: ultima.loteria,
-      posicion: ultima.p2 === num ? '2ª' : '3ª', objetivo: cfg.objetivo,
-      diasRest, combos: cfg.combos
-    });
+    senales.push({ tipo:'directo', numero:num, fecha:ultima.fecha, loteria:ultima.loteria, posicion:ultima.p2===num?'2ª':'3ª', objetivo:cfg.objetivo, diasRest, combos:cfg.combos });
   }
-  // Espejos
   for (let clave in ESPEJOS) {
     const cfg = ESPEJOS[clave];
     const ocurrencias = ultimos7.filter(s => s.p2 === cfg.anunciador || s.p3 === cfg.anunciador);
@@ -219,12 +191,7 @@ function detectarSenalesParaSorteo(fechaHoraSorteo) {
     const ultima = ocurrencias.sort((a,b) => new Date(b.fecha+'T'+b.horario) - new Date(a.fecha+'T'+a.horario))[0];
     const diasRest = cfg.ventana - Math.floor((fechaSorteo - new Date(ultima.fecha)) / 86400000);
     if (diasRest <= 0) continue;
-    senales.push({
-      tipo: 'espejo',
-      numero: cfg.destino, fecha: ultima.fecha, loteria: ultima.loteria,
-      posicion: ultima.p2 === cfg.anunciador ? '2ª' : '3ª', objetivo: 'GA/FL',
-      diasRest, combos: cfg.combos, anunciador: cfg.anunciador
-    });
+    senales.push({ tipo:'espejo', numero:cfg.destino, fecha:ultima.fecha, loteria:ultima.loteria, posicion:ultima.p2===cfg.anunciador?'2ª':'3ª', objetivo:'GA/FL', diasRest, combos:cfg.combos, anunciador:cfg.anunciador });
   }
   return senales;
 }
@@ -256,15 +223,6 @@ function simularMC(iter, filtroFn) {
   return { ranking, totalSims: iter };
 }
 
-function getBloqueMes(dia) {
-  if (dia <= 5) return '1-5';
-  if (dia <= 10) return '6-10';
-  if (dia <= 15) return '11-15';
-  if (dia <= 20) return '16-20';
-  if (dia <= 25) return '21-25';
-  return '26-31';
-}
-
 function evaluarSorteo(sorteo) {
   const ahora = new Date();
   const fechaHoraSorteo = new Date(sorteo.fechaHora);
@@ -277,20 +235,15 @@ function evaluarSorteo(sorteo) {
   const mc1 = simularMC(5000, s => s.loteria === sorteo.loteria);
   const mc2 = simularMC(5000, s => s.loteria === sorteo.loteria && diaSemana(s.fecha) === diaHoy);
   const mc3 = simularMC(5000, s => s.loteria === sorteo.loteria && getBloqueMes(parseInt(s.fecha.slice(8,10))) === bloqueHoy);
-
   let refuerzos = {};
   senales.forEach(senal => {
     const num = senal.numero;
-    const m1 = mc1?.ranking.find(r => r.num === num);
-    const m2 = mc2?.ranking.find(r => r.num === num);
-    const m3 = mc3?.ranking.find(r => r.num === num);
     refuerzos[num] = {
-      mc1: m1 ? `Top ${mc1.ranking.indexOf(m1)+1} (${m1.prob}%)` : 'No aparece',
-      mc2: m2 ? `Top ${mc2.ranking.indexOf(m2)+1} (${m2.prob}%)` : 'No aparece',
-      mc3: m3 ? `Top ${mc3.ranking.indexOf(m3)+1} (${m3.prob}%)` : 'No aparece'
+      mc1: mc1?.ranking.find(r => r.num === num) ? `MC1: Top ${mc1.ranking.indexOf(mc1.ranking.find(r=>r.num===num))+1} (${mc1.ranking.find(r=>r.num===num).prob}%)` : 'MC1: No aparece',
+      mc2: mc2?.ranking.find(r => r.num === num) ? `MC2(día): Top ${mc2.ranking.indexOf(mc2.ranking.find(r=>r.num===num))+1} (${mc2.ranking.find(r=>r.num===num).prob}%)` : 'MC2(día): No aparece',
+      mc3: mc3?.ranking.find(r => r.num === num) ? `MC3(bloque): Top ${mc3.ranking.indexOf(mc3.ranking.find(r=>r.num===num))+1} (${mc3.ranking.find(r=>r.num===num).prob}%)` : 'MC3(bloque): No aparece'
     };
   });
-
   return { finalizado: false, label: sorteo.label, loteria: sorteo.loteria, senales, refuerzos };
 }
 
@@ -306,7 +259,6 @@ function renderHoy() {
     { label: 'NY 10:30 PM', fechaHora: `${hoy}T22:30:00`, loteria: 'NY', dia },
     { label: 'Georgia 11:30 PM', fechaHora: `${hoy}T23:30:00`, loteria: 'GEORGIA', dia }
   ];
-
   const resultados = sorteosHoy.map(evaluarSorteo);
   const cont = document.getElementById('cHoy');
   let html = '';
@@ -321,6 +273,7 @@ function renderHoy() {
         html += `<div class="sorteo-card ${clase}">`;
         html += `<strong>${r.label}</strong> — <span class="qhh-num ${clase==='jugar'?'j':'e'}">${senal.numero}</span> (${senal.tipo})`;
         html += `<div style="margin-top:6px;">📡 ${senal.posicion} en ${senal.loteria} (${senal.fecha}) · ${senal.diasRest} días</div>`;
+        if (senal.tipo === 'espejo') html += `<div>🪞 Anunciado por <strong>${senal.anunciador}</strong></div>`;
         html += `<div class="jbox"><div class="jtit">COMBINACIONES</div>`;
         senal.combos.forEach(c => {
           html += `<div class="jrow">${c.map(n => `<span class="qhh-num j">${n}</span>`).join('')}</div>`;
@@ -329,9 +282,9 @@ function renderHoy() {
         const ref = r.refuerzos[senal.numero];
         if (ref) {
           html += `<div class="sr" style="margin-top:8px;">`;
-          html += `<span class="st mc">MC1: ${ref.mc1}</span>`;
-          html += `<span class="st mc">MC2(día): ${ref.mc2}</span>`;
-          html += `<span class="st mc">MC3(bloque): ${ref.mc3}</span>`;
+          html += `<span class="st mc">${ref.mc1}</span>`;
+          html += `<span class="st mc">${ref.mc2}</span>`;
+          html += `<span class="st mc">${ref.mc3}</span>`;
           html += `</div>`;
         }
         html += `</div>`;
@@ -341,7 +294,6 @@ function renderHoy() {
   cont.innerHTML = html;
 }
 
-// ============== RESTO DE PESTAÑAS (MANTENIDAS) ==============
 function renderPronosticoA() {
   const senales = detectarSenalesParaSorteo(new Date().toISOString());
   const cont = document.getElementById('cProno');
@@ -351,62 +303,47 @@ function renderPronosticoA() {
   }
   let html = '';
   senales.forEach(s => {
-    html += `<div class="pc A">`;
-    html += `<div class="nd A">${s.numero}</div> <span class="nlbl A">${s.posicion} en ${s.loteria} (${s.fecha})</span>`;
+    html += `<div class="pc A"><div class="nd A">${s.numero}</div> <span class="nlbl A">${s.posicion} en ${s.loteria} (${s.fecha})</span>`;
     html += `<div style="margin-top:6px;">🎯 ${s.objetivo} · ${s.diasRest} día(s) restantes</div>`;
     html += `<div class="jbox"><div class="jtit">COMBINACIONES</div>`;
-    s.combos.forEach(c => {
-      html += `<div class="jrow">${c.map(n => `<span class="qhh-num j">${n}</span>`).join('')}</div>`;
-    });
+    s.combos.forEach(c => { html += `<div class="jrow">${c.map(n => `<span class="qhh-num j">${n}</span>`).join('')}</div>`; });
     html += `</div></div>`;
   });
   cont.innerHTML = html;
 }
 
-function renderMC() {
-  const resDiv = document.getElementById('mcRes');
-  const btnMC = document.getElementById('btnMC');
-  const btnMCR = document.getElementById('btnMCR');
-  btnMC.onclick = function() {
-    const progreso = document.getElementById('mcProg');
-    const barra = document.getElementById('mcBar');
-    const pctSpan = document.getElementById('mcPct');
-    const stSpan = document.getElementById('mcSt');
-    progreso.style.display = 'block';
-    resDiv.innerHTML = '';
-    const totalIter = 20000;
-    setTimeout(() => {
-      const filtroL = document.getElementById('mcL').value;
-      const filtroH = document.getElementById('mcH').value;
-      const filtroD = document.getElementById('mcD').value;
-      const resultado = simularMC(totalIter, s => {
-        if (filtroL && s.loteria !== filtroL) return false;
-        if (filtroH && s.horario.slice(0,2) !== filtroH) return false;
-        if (filtroD !== '' && diaSemana(s.fecha) !== parseInt(filtroD)) return false;
-        return true;
-      });
-      if (resultado) {
-        let html = `<div style="margin-bottom:8px;font-family:var(--mono),monospace;font-size:.7rem;color:var(--mu);">${resultado.totalSims} simulaciones</div>`;
-        html += '<div class="es-grid">';
-        resultado.ranking.forEach((r, idx) => {
-          let clase = idx === 0 ? 's1' : (idx < 3 ? 's2' : 's3');
-          html += `<div class="es-num ${clase}"><div class="es-n ${clase}">${r.num}</div><div class="es-s">Prob. ${r.prob}%</div></div>`;
-        });
-        html += '</div>';
-        resDiv.innerHTML = html;
-      }
-      progreso.style.display = 'none';
-    }, 100);
-  };
-  btnMCR.onclick = function() {
-    resDiv.innerHTML = '<div class="wbox">Simulación reseteada. Pulsa "Simular" para empezar.</div>';
-    document.getElementById('mcProg').style.display = 'none';
-  };
+function simYMostrar(modulo) {
+  const iter = 20000;
+  let filtroFn;
+  const lotSelect = document.getElementById(modulo === 'mc1' ? 'mcL1' : (modulo === 'mc3' ? 'mcL3' : 'mcL4'));
+  const lot = lotSelect ? lotSelect.value : '';
+  if (modulo === 'mc1') {
+    filtroFn = s => (lot === '' || s.loteria === lot);
+  } else if (modulo === 'mc3') {
+    const diaHoy = diaSemana(new Date().toISOString().slice(0,10));
+    filtroFn = s => (lot === '' || s.loteria === lot) && diaSemana(s.fecha) === diaHoy;
+  } else if (modulo === 'mc4') {
+    const bloqueHoy = getBloqueMes(parseInt(new Date().toISOString().slice(8,10)));
+    filtroFn = s => (lot === '' || s.loteria === lot) && getBloqueMes(parseInt(s.fecha.slice(8,10))) === bloqueHoy;
+  }
+  const resultado = simularMC(iter, filtroFn);
+  const div = document.getElementById(modulo === 'mc1' ? 'mcRes1' : (modulo === 'mc3' ? 'mcRes3' : 'mcRes4'));
+  if (resultado) {
+    let html = `<div style="font-family:var(--mono);font-size:.7rem;color:var(--mu);margin-bottom:6px;">${resultado.totalSims} sims</div><div class="es-grid">`;
+    resultado.ranking.forEach((r, idx) => {
+      let clase = idx === 0 ? 's1' : (idx < 3 ? 's2' : 's3');
+      html += `<div class="es-num ${clase}"><div class="es-n ${clase}">${r.num}</div><div class="es-s">Prob. ${r.prob}%</div></div>`;
+    });
+    html += '</div>';
+    div.innerHTML = html;
+  } else {
+    div.innerHTML = '<div class="wbox">No hay datos para simular.</div>';
+  }
 }
 
 function renderMC2() {
   const cont = document.getElementById('cMC2');
-  let html = '<div class="ctit mc">🎲 MONTE CARLO 2 — PATRONES 2ª/3ª→1ª COMPROBADOS</div>';
+  let html = '<div class="ctit mc">🎲 MC2 — PATRONES 2ª/3ª→1ª COMPROBADOS</div>';
   const hoy = new Date(); hoy.setHours(0,0,0,0);
   const ultimos7 = sorteos.filter(s => (hoy - new Date(s.fecha)) / 86400000 <= 7);
   const patrones = [];
@@ -435,11 +372,7 @@ function renderMC2() {
   patrones.sort((a,b) => b.tasa - a.tasa);
   patrones.slice(0, 15).forEach((p, idx) => {
     let clase = idx === 0 ? 'r1' : (idx < 3 ? 'r2' : 'r3');
-    html += `<div class="mc2-card ${clase}">`;
-    html += `<span class="mc-num ${clase}">${p.num}</span> `;
-    html += `Tasa de arrastre: <strong>${p.tasa}%</strong> (${p.aciertos}/${p.total})`;
-    html += ` | Recientes: ${p.ocurrenciasRecientes}`;
-    html += `</div>`;
+    html += `<div class="mc2-card ${clase}"><span class="mc-num ${clase}">${p.num}</span> Tasa de arrastre: <strong>${p.tasa}%</strong> (${p.aciertos}/${p.total}) | Recientes: ${p.ocurrenciasRecientes}</div>`;
   });
   if (patrones.length === 0) html += '<div class="wbox">No se encontraron patrones significativos en los últimos 7 días.</div>';
   cont.innerHTML = html;
@@ -466,13 +399,7 @@ function renderFormAct() {
   const hoy = new Date().toISOString().slice(0, 10);
   let html = '';
   SORTEOS_DIARIOS.forEach((s, idx) => {
-    html += `<div class="ig">`;
-    html += `<label>${s.label}</label>`;
-    html += `<input type="text" id="p1_${idx}" placeholder="1ª" maxlength="2" style="margin-bottom:3px;">`;
-    html += `<input type="text" id="p2_${idx}" placeholder="2ª" maxlength="2" style="margin-bottom:3px;">`;
-    html += `<input type="text" id="p3_${idx}" placeholder="3ª" maxlength="2">`;
-    html += `<input type="hidden" id="fecha_${idx}" value="${hoy}">`;
-    html += `</div>`;
+    html += `<div class="ig"><label>${s.label}</label><input type="text" id="p1_${idx}" placeholder="1ª" maxlength="2"><input type="text" id="p2_${idx}" placeholder="2ª" maxlength="2" style="margin-top:3px;"><input type="text" id="p3_${idx}" placeholder="3ª" maxlength="2" style="margin-top:3px;"><input type="hidden" id="fecha_${idx}" value="${hoy}"></div>`;
   });
   cont.innerHTML = html;
 }
@@ -496,12 +423,7 @@ function guardarActualizacion() {
       sorteos.sort((a,b) => (a.fecha+'T'+a.horario).localeCompare(b.fecha+'T'+b.horario));
       guardarLS();
       showFlash('✅ ' + realmenteNuevos.length + ' sorteos guardados');
-      renderHist();
-      renderHoy();
-      renderPronosticoA();
-      renderMC2();
-      actualizarStatusBar();
-      renderFormAct();
+      renderHist(); renderHoy(); renderPronosticoA(); renderMC2(); actualizarStatusBar(); renderFormAct();
     } else {
       showFlash('⚠️ Los sorteos ya existen');
     }
@@ -519,7 +441,7 @@ function showFlash(msg) {
 document.getElementById('btnS').addEventListener('click', guardarActualizacion);
 document.getElementById('btnC').addEventListener('click', renderFormAct);
 
-// ============== NAVEGACIÓN POR PESTAÑAS ==============
+// Navegación
 const tabs = document.querySelectorAll('.tb');
 const pags = document.querySelectorAll('.pg');
 tabs.forEach(tab => {
@@ -536,17 +458,11 @@ tabs.forEach(tab => {
   });
 });
 
-// ============== INICIALIZAR ==============
-renderFormAct();
-renderHoy();
-renderPronosticoA();
-renderMC();
-renderMC2();
-renderHist();
-actualizarStatusBar();
+renderFormAct(); renderHoy(); renderPronosticoA(); renderMC2(); renderHist(); actualizarStatusBar();
 })();
 </script>
 </body>
 </html>
+
 
  
