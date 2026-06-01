@@ -1,115 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LOTO 2026 PRO MAX · 8 Ventanas</title>
-<style>
-:root{--mono:"Share Tech Mono",monospace;--orb:"Orbitron",monospace;--exo:"Exo 2",sans-serif;--bg:#020d18;--card:rgba(4,20,38,0.96);--b:rgba(0,200,255,0.13);--ac:#00c8ff;--go:#ffd700;--gr:#00ff88;--rd:#ff4060;--pu:#b060ff;--or:#ff9944;--tx:#d0eaff;--mu:#5a8099;--mc:#00ffcc;--pr:#ff60c0;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);background-image:radial-gradient(ellipse at 10% 0%,rgba(0,100,200,.15),transparent 55%),radial-gradient(ellipse at 90% 85%,rgba(60,0,120,.1),transparent 50%);min-height:100vh;font-family:var(--exo),sans-serif;color:var(--tx);padding:10px;}
-.app{max-width:880px;margin:0 auto;}
-.hdr{text-align:center;padding:14px 0 6px;}
-.logo{font-family:var(--orb),monospace;font-size:2.4rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,#00c8ff,#fff,#ffd700,#00ff88,#ff60c0,#00c8ff);background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite;}
-.sub{font-size:.65rem;color:var(--mu);font-family:var(--mono),monospace;letter-spacing:2px;margin-top:2px;}
-@keyframes sh{to{background-position:300% center;}}
-.clk{display:inline-flex;align-items:center;margin-top:6px;background:rgba(0,200,255,.07);border:1px solid var(--b);border-radius:50px;padding:5px 15px;font-family:var(--mono),monospace;color:var(--go);font-size:.75rem;}
-.sbar{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap;}
-.pill{padding:3px 11px;border-radius:20px;font-size:.66rem;font-weight:700;font-family:var(--mono),monospace;}
-.pill.ok{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.4);color:var(--gr);}
-.pill.par{background:rgba(255,153,68,.1);border:1px solid rgba(255,153,68,.4);color:var(--or);}
-.pill.pend{background:rgba(255,64,96,.1);border:1px solid rgba(255,64,96,.3);color:var(--rd);}
-.tabs{display:flex;gap:4px;justify-content:center;margin:10px 0 8px;border-bottom:1px solid var(--b);padding-bottom:8px;flex-wrap:wrap;}
-.tb{background:transparent;border:1px solid rgba(0,200,255,.17);padding:7px 11px;font-size:.72rem;font-weight:700;color:var(--mu);border-radius:8px;cursor:pointer;transition:.2s;font-family:var(--exo),sans-serif;}
-.tb:hover{color:var(--ac);border-color:var(--ac);}
-.tb.on{background:linear-gradient(135deg,rgba(0,200,255,.14),rgba(0,100,200,.07));color:var(--ac);border-color:var(--ac);box-shadow:0 0 12px rgba(0,200,255,.15);}
-.tb.mc-t.on{background:linear-gradient(135deg,rgba(0,255,204,.12),rgba(0,150,120,.06));color:var(--mc);border-color:var(--mc);}
-.pg{display:none;animation:fi .3s ease;}
-.pg.on{display:block;}
-@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--b);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 8px 32px rgba(0,0,0,.5);}
-.ctit{font-family:var(--orb),monospace;font-size:.75rem;font-weight:700;color:var(--go);letter-spacing:2px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--b);}
-.ctit.mc{color:var(--mc);}
-.sorteo-card{border-radius:14px;padding:15px;margin-bottom:10px;}
-.sorteo-card.jugar{background:linear-gradient(135deg,rgba(0,255,136,.08),rgba(0,200,255,.04));border:2px solid rgba(0,255,136,.4);}
-.sorteo-card.esperar{background:rgba(255,153,68,.06);border:1px solid rgba(255,153,68,.35);}
-.sorteo-card.nojugar{background:rgba(255,64,96,.06);border:1px solid rgba(255,64,96,.3);}
-.sorteo-card.finalizado{background:rgba(100,100,100,.08);border:1px solid rgba(150,150,150,.3);}
-.qhh-num{font-family:var(--orb),monospace;font-size:2rem;font-weight:900;display:inline-block;padding:2px 12px;border-radius:8px;margin:0 5px;}
-.qhh-num.j{color:var(--go);background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.25);}
-.qhh-num.e{color:var(--or);background:rgba(255,153,68,.06);border:1px solid rgba(255,153,68,.22);}
-.lp{display:inline-block;padding:4px 10px;border-radius:8px;font-size:.74rem;font-weight:700;font-family:var(--mono),monospace;}
-.lp.ga{background:#c41e3a22;color:#ff6680;border:1px solid #c41e3a44;}
-.lp.fl{background:#ff6b3522;color:#ffaa77;border:1px solid #ff6b3544;}
-.lp.ny{background:#4169e122;color:#88aaff;border:1px solid #4169e144;}
-.jbox{background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.2);border-radius:10px;padding:10px 13px;margin-top:9px;}
-.jtit{font-size:.66rem;color:var(--gr);font-weight:700;margin-bottom:5px;font-family:var(--mono),monospace;letter-spacing:1px;}
-.jrow{display:flex;align-items:center;gap:8px;margin:4px 0;flex-wrap:wrap;}
-.sr{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
-.st{display:inline-block;padding:2px 7px;border-radius:10px;font-size:.63rem;font-family:var(--mono),monospace;background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.12);color:var(--mu);}
-.st.go{background:rgba(255,215,0,.05);border-color:rgba(255,215,0,.16);color:var(--go);}
-.st.gr{background:rgba(0,255,136,.05);border-color:rgba(0,255,136,.16);color:var(--gr);}
-.st.rd{background:rgba(255,64,96,.05);border-color:rgba(255,64,96,.16);color:var(--rd);}
-.st.or{background:rgba(255,153,68,.05);border-color:rgba(255,153,68,.16);color:var(--or);}
-.st.mc{background:rgba(0,255,204,.05);border-color:rgba(0,255,204,.16);color:var(--mc);}
-table{width:100%;border-collapse:collapse;font-size:.76rem;}
-th{background:rgba(0,200,255,.07);color:var(--ac);padding:7px;text-align:left;font-size:.7rem;position:sticky;top:0;z-index:1;}
-td{padding:6px 7px;border-bottom:1px solid rgba(0,200,255,.05);}
-tr:hover td{background:rgba(0,200,255,.03);}
-.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;}
-.ig{background:rgba(0,200,255,.04);border:1px solid var(--b);border-radius:10px;padding:9px;}
-.ig label{display:block;color:var(--go);font-size:.66rem;font-weight:700;margin-bottom:4px;}
-.ig input{width:100%;padding:7px;border-radius:6px;border:1px solid var(--b);background:rgba(0,10,30,.7);color:white;font-family:var(--mono),monospace;text-align:center;margin-top:2px;font-size:.86rem;}
-.btn-g{background:linear-gradient(145deg,#f3c84e,#c99d1e);border:none;padding:12px 24px;border-radius:8px;font-family:var(--exo),sans-serif;font-weight:800;font-size:.88rem;color:#0a1c2c;cursor:pointer;box-shadow:0 4px 0 #7a5c00;transition:.15s;}
-.btn-g:active{transform:translateY(3px);box-shadow:0 1px 0 #7a5c00;}
-.btn-mc{background:linear-gradient(145deg,#00ffcc,#00aa88);border:none;padding:11px 22px;border-radius:8px;font-family:var(--exo),sans-serif;font-weight:800;font-size:.86rem;color:#001a14;cursor:pointer;box-shadow:0 4px 0 #005544;}
-.btn-o{background:transparent;border:1px solid var(--b);color:var(--mu);padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:.82rem;}
-.btn-o:hover{border-color:var(--ac);color:var(--ac);}
-.wbox{background:rgba(255,153,68,.07);border:1px solid rgba(255,153,68,.28);border-radius:10px;padding:10px;color:var(--or);margin-bottom:10px;font-size:.76rem;}
-.es-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin:8px 0;}
-.es-num{background:rgba(0,10,25,.7);border-radius:10px;padding:8px;text-align:center;border:1px solid var(--b);}
-.es-num.s1{border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.05);}
-.es-num.s2{border-color:rgba(0,200,255,.3);background:rgba(0,200,255,.04);}
-.es-num.s3{border-color:rgba(176,96,255,.25);background:rgba(176,96,255,.04);}
-.es-n{font-family:var(--orb),monospace;font-size:1.4rem;font-weight:900;}
-.es-n.s1{color:var(--go);}.es-n.s2{color:var(--ac);}.es-n.s3{color:var(--pu);}
-.es-s{font-size:.6rem;font-family:var(--mono),monospace;color:var(--mu);margin-top:3px;}
-.mc-bar-wrap{background:rgba(0,20,30,.8);border-radius:6px;height:12px;overflow:hidden;margin:8px 0;}
-.mc-bar{height:100%;background:linear-gradient(90deg,#00ffcc,#00aaff);border-radius:6px;transition:width .3s ease;width:0%;}
-.mc-cfg{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
-.mc-cfg select{background:rgba(0,10,30,.8);border:1px solid var(--b);color:var(--tx);padding:6px 9px;border-radius:6px;font-size:.75rem;font-family:var(--mono),monospace;}
-.saved-flash{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,255,136,.15);border:2px solid rgba(0,255,136,.5);color:var(--gr);padding:10px 22px;border-radius:50px;font-family:var(--orb),monospace;font-size:.8rem;font-weight:700;letter-spacing:2px;z-index:999;animation:flashIn .3s ease;pointer-events:none;}
-@keyframes flashIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@media(max-width:480px){.qhh-num{font-size:1.6rem;}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>LOTO 2026 PRO MAX · 8 Ventanas</title>
+  <style>
+    :root{--mono:"Share Tech Mono",monospace;--orb:"Orbitron",monospace;--exo:"Exo 2",sans-serif;--bg:#020d18;--card:rgba(4,20,38,0.96);--b:rgba(0,200,255,0.13);--ac:#00c8ff;--go:#ffd700;--gr:#00ff88;--rd:#ff4060;--pu:#b060ff;--or:#ff9944;--tx:#d0eaff;--mu:#5a8099;--mc:#00ffcc;--pr:#ff60c0;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);background-image:radial-gradient(ellipse at 10% 0%,rgba(0,100,200,.15),transparent 55%),radial-gradient(ellipse at 90% 85%,rgba(60,0,120,.1),transparent 50%);min-height:100vh;font-family:var(--exo),sans-serif;color:var(--tx);padding:10px;}
+    .app{max-width:880px;margin:0 auto;}
+    .hdr{text-align:center;padding:14px 0 6px;}
+    .logo{font-family:var(--orb),monospace;font-size:2.4rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,#00c8ff,#fff,#ffd700,#00ff88,#ff60c0,#00c8ff);background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite;}
+    .sub{font-size:.65rem;color:var(--mu);font-family:var(--mono),monospace;letter-spacing:2px;margin-top:2px;}
+    @keyframes sh{to{background-position:300% center;}}
+    .clk{display:inline-flex;align-items:center;margin-top:6px;background:rgba(0,200,255,.07);border:1px solid var(--b);border-radius:50px;padding:5px 15px;font-family:var(--mono),monospace;color:var(--go);font-size:.75rem;}
+    .sbar{display:flex;justify-content:center;gap:6px;margin:6px 0;flex-wrap:wrap;}
+    .pill{padding:3px 11px;border-radius:20px;font-size:.66rem;font-weight:700;font-family:var(--mono),monospace;}
+    .pill.ok{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.4);color:var(--gr);}
+    .pill.par{background:rgba(255,153,68,.1);border:1px solid rgba(255,153,68,.4);color:var(--or);}
+    .pill.pend{background:rgba(255,64,96,.1);border:1px solid rgba(255,64,96,.3);color:var(--rd);}
+    .tabs{display:flex;gap:4px;justify-content:center;margin:10px 0 8px;border-bottom:1px solid var(--b);padding-bottom:8px;flex-wrap:wrap;}
+    .tb{background:transparent;border:1px solid rgba(0,200,255,.17);padding:7px 11px;font-size:.72rem;font-weight:700;color:var(--mu);border-radius:8px;cursor:pointer;transition:.2s;font-family:var(--exo),sans-serif;}
+    .tb:hover{color:var(--ac);border-color:var(--ac);}
+    .tb.on{background:linear-gradient(135deg,rgba(0,200,255,.14),rgba(0,100,200,.07));color:var(--ac);border-color:var(--ac);box-shadow:0 0 12px rgba(0,200,255,.15);}
+    .tb.mc-t.on{background:linear-gradient(135deg,rgba(0,255,204,.12),rgba(0,150,120,.06));color:var(--mc);border-color:var(--mc);}
+    .pg{display:none;animation:fi .3s ease;}
+    .pg.on{display:block;}
+    @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--b);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+    .ctit{font-family:var(--orb),monospace;font-size:.75rem;font-weight:700;color:var(--go);letter-spacing:2px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--b);}
+    .ctit.mc{color:var(--mc);}
+    .sorteo-card{border-radius:14px;padding:15px;margin-bottom:10px;}
+    .sorteo-card.jugar{background:linear-gradient(135deg,rgba(0,255,136,.08),rgba(0,200,255,.04));border:2px solid rgba(0,255,136,.4);}
+    .sorteo-card.esperar{background:rgba(255,153,68,.06);border:1px solid rgba(255,153,68,.35);}
+    .sorteo-card.nojugar{background:rgba(255,64,96,.06);border:1px solid rgba(255,64,96,.3);}
+    .sorteo-card.finalizado{background:rgba(100,100,100,.08);border:1px solid rgba(150,150,150,.3);}
+    .qhh-num{font-family:var(--orb),monospace;font-size:2rem;font-weight:900;display:inline-block;padding:2px 12px;border-radius:8px;margin:0 5px;}
+    .qhh-num.j{color:var(--go);background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.25);}
+    .qhh-num.e{color:var(--or);background:rgba(255,153,68,.06);border:1px solid rgba(255,153,68,.22);}
+    .lp{display:inline-block;padding:4px 10px;border-radius:8px;font-size:.74rem;font-weight:700;font-family:var(--mono),monospace;}
+    .lp.ga{background:#c41e3a22;color:#ff6680;border:1px solid #c41e3a44;}
+    .lp.fl{background:#ff6b3522;color:#ffaa77;border:1px solid #ff6b3544;}
+    .lp.ny{background:#4169e122;color:#88aaff;border:1px solid #4169e144;}
+    .jbox{background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.2);border-radius:10px;padding:10px 13px;margin-top:9px;}
+    .jtit{font-size:.66rem;color:var(--gr);font-weight:700;margin-bottom:5px;font-family:var(--mono),monospace;letter-spacing:1px;}
+    .jrow{display:flex;align-items:center;gap:8px;margin:4px 0;flex-wrap:wrap;}
+    .sr{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
+    .st{display:inline-block;padding:2px 7px;border-radius:10px;font-size:.63rem;font-family:var(--mono),monospace;background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.12);color:var(--mu);}
+    .st.go{background:rgba(255,215,0,.05);border-color:rgba(255,215,0,.16);color:var(--go);}
+    .st.gr{background:rgba(0,255,136,.05);border-color:rgba(0,255,136,.16);color:var(--gr);}
+    .st.rd{background:rgba(255,64,96,.05);border-color:rgba(255,64,96,.16);color:var(--rd);}
+    .st.or{background:rgba(255,153,68,.05);border-color:rgba(255,153,68,.16);color:var(--or);}
+    .st.mc{background:rgba(0,255,204,.05);border-color:rgba(0,255,204,.16);color:var(--mc);}
+    table{width:100%;border-collapse:collapse;font-size:.76rem;}
+    th{background:rgba(0,200,255,.07);color:var(--ac);padding:7px;text-align:left;font-size:.7rem;position:sticky;top:0;z-index:1;}
+    td{padding:6px 7px;border-bottom:1px solid rgba(0,200,255,.05);}
+    tr:hover td{background:rgba(0,200,255,.03);}
+    .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;}
+    .ig{background:rgba(0,200,255,.04);border:1px solid var(--b);border-radius:10px;padding:9px;}
+    .ig label{display:block;color:var(--go);font-size:.66rem;font-weight:700;margin-bottom:4px;}
+    .ig input{width:100%;padding:7px;border-radius:6px;border:1px solid var(--b);background:rgba(0,10,30,.7);color:white;font-family:var(--mono),monospace;text-align:center;margin-top:2px;font-size:.86rem;}
+    .btn-g{background:linear-gradient(145deg,#f3c84e,#c99d1e);border:none;padding:12px 24px;border-radius:8px;font-family:var(--exo),sans-serif;font-weight:800;font-size:.88rem;color:#0a1c2c;cursor:pointer;box-shadow:0 4px 0 #7a5c00;transition:.15s;}
+    .btn-g:active{transform:translateY(3px);box-shadow:0 1px 0 #7a5c00;}
+    .btn-mc{background:linear-gradient(145deg,#00ffcc,#00aa88);border:none;padding:11px 22px;border-radius:8px;font-family:var(--exo),sans-serif;font-weight:800;font-size:.86rem;color:#001a14;cursor:pointer;box-shadow:0 4px 0 #005544;}
+    .btn-o{background:transparent;border:1px solid var(--b);color:var(--mu);padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-size:.82rem;}
+    .btn-o:hover{border-color:var(--ac);color:var(--ac);}
+    .wbox{background:rgba(255,153,68,.07);border:1px solid rgba(255,153,68,.28);border-radius:10px;padding:10px;color:var(--or);margin-bottom:10px;font-size:.76rem;}
+    .es-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin:8px 0;}
+    .es-num{background:rgba(0,10,25,.7);border-radius:10px;padding:8px;text-align:center;border:1px solid var(--b);}
+    .es-num.s1{border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.05);}
+    .es-num.s2{border-color:rgba(0,200,255,.3);background:rgba(0,200,255,.04);}
+    .es-num.s3{border-color:rgba(176,96,255,.25);background:rgba(176,96,255,.04);}
+    .es-n{font-family:var(--orb),monospace;font-size:1.4rem;font-weight:900;}
+    .es-n.s1{color:var(--go);}.es-n.s2{color:var(--ac);}.es-n.s3{color:var(--pu);}
+    .es-s{font-size:.6rem;font-family:var(--mono),monospace;color:var(--mu);margin-top:3px;}
+    .mc-bar-wrap{background:rgba(0,20,30,.8);border-radius:6px;height:12px;overflow:hidden;margin:8px 0;}
+    .mc-bar{height:100%;background:linear-gradient(90deg,#00ffcc,#00aaff);border-radius:6px;transition:width .3s ease;width:0%;}
+    .mc-cfg{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+    .mc-cfg select{background:rgba(0,10,30,.8);border:1px solid var(--b);color:var(--tx);padding:6px 9px;border-radius:6px;font-size:.75rem;font-family:var(--mono),monospace;}
+    .saved-flash{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,255,136,.15);border:2px solid rgba(0,255,136,.5);color:var(--gr);padding:10px 22px;border-radius:50px;font-family:var(--orb),monospace;font-size:.8rem;font-weight:700;letter-spacing:2px;z-index:999;animation:flashIn .3s ease;pointer-events:none;}
+    @keyframes flashIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+    @media(max-width:480px){.qhh-num{font-size:1.6rem;}}
+  </style>
 </head>
 <body>
 <div class="app">
-<div class="hdr"><div class="logo">LOTO 2026 PRO MAX</div><div class="sub">GEORGIA · FLORIDA · NEW YORK — <span id="subCount">1595</span> SORTEOS VERIFICADOS</div><div class="clk" id="clk">--</div><div class="sbar" id="sbar"></div></div>
-<div class="tabs">
-<button class="tb on" data-tab="hoy">💡 Hoy</button>
-<button class="tb" data-tab="prono">🎯 Pronósticos</button>
-<button class="tb mc-t" data-tab="mc">🎲 MC1</button>
-<button class="tb mc-t" data-tab="mc2">🎲 MC2</button>
-<button class="tb mc-t" data-tab="mc3">🎲 MC3</button>
-<button class="tb mc-t" data-tab="mc4">🎲 MC4</button>
-<button class="tb" data-tab="hist">📜 Historial</button>
-<button class="tb" data-tab="act">🔄 Actualizar</button>
-</div>
+  <div class="hdr"><div class="logo">LOTO 2026 PRO MAX</div><div class="sub">GEORGIA · FLORIDA · NEW YORK — <span id="subCount">1637</span> SORTEOS VERIFICADOS</div><div class="clk" id="clk">--</div><div class="sbar" id="sbar"></div></div>
+  <div class="tabs">
+    <button class="tb on" data-tab="hoy">💡 Hoy</button>
+    <button class="tb" data-tab="prono">🎯 Pronósticos</button>
+    <button class="tb mc-t" data-tab="mc">🎲 MC1</button>
+    <button class="tb mc-t" data-tab="mc2">🎲 MC2</button>
+    <button class="tb mc-t" data-tab="mc3">🎲 MC3</button>
+    <button class="tb mc-t" data-tab="mc4">🎲 MC4</button>
+    <button class="tb" data-tab="hist">📜 Historial</button>
+    <button class="tb" data-tab="act">🔄 Actualizar</button>
+  </div>
 
-<div id="hoy" class="pg on"><div class="card"><div class="ctit">💡 ANÁLISIS POR SORTEO — HOY</div><div id="cHoy"></div></div></div>
-<div id="prono" class="pg"><div class="card"><div class="ctit">🎯 PRONÓSTICOS DETALLADOS</div><div id="cProno"></div></div></div>
-<div id="mc" class="pg"><div class="card"><div class="ctit mc">🎲 MC1 — FRECUENCIA GENERAL</div><div class="mc-cfg"><label>Lot:</label><select id="mcL1"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" id="btnMC1">▶ Simular 20k</button></div><div id="mcRes1"></div></div></div>
-<div id="mc2" class="pg"><div class="card"><div class="ctit mc">🎲 MC2 — PATRONES 2ª/3ª→1ª</div><div id="cMC2"><div class="wbox">Cargando análisis...</div></div></div></div>
-<div id="mc3" class="pg"><div class="card"><div class="ctit mc">🎲 MC3 — POR DÍA DE LA SEMANA</div><div class="mc-cfg"><label>Lot:</label><select id="mcL3"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" id="btnMC3">▶ Simular 20k</button></div><div id="mcRes3"></div></div></div>
-<div id="mc4" class="pg"><div class="card"><div class="ctit mc">🎲 MC4 — POR BLOQUE DEL MES</div><div class="mc-cfg"><label>Lot:</label><select id="mcL4"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" id="btnMC4">▶ Simular 20k</button></div><div id="mcRes4"></div></div></div>
-<div id="hist" class="pg"><div class="card"><div class="ctit">📜 HISTORIAL — <span id="hTotal"></span> sorteos</div>
-<div style="display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;"><select id="fL"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><input type="date" id="fF"><button class="btn-o" id="btnFiltrarHist">Filtrar</button><button class="btn-o" id="btnTodoHist">Todo</button></div>
-<div style="max-height:520px;overflow-y:auto;"><table><thead><tr><th>Fecha</th><th>Lot.</th><th>Hora</th><th>1ª</th><th>2ª</th><th>3ª</th></tr></thead><tbody id="hBody"></tbody></table></div></div></div>
-<div id="act" class="pg"><div class="card"><div class="ctit">🔄 ACTUALIZAR SORTEOS</div>
-<div class="mc-cfg" style="margin-bottom:14px;"><label style="color:var(--go);">Fecha:</label><input type="date" id="actFecha" style="background:rgba(0,10,30,.8);border:1px solid var(--b);color:white;padding:6px 9px;border-radius:6px;"></div>
-<div class="fgrid" id="fAct"></div>
-<div style="display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;"><button class="btn-g" id="btnS">💾 Guardar y Recalcular</button><button class="btn-o" id="btnC">🧹 Limpiar</button></div></div></div>
+  <div id="hoy" class="pg on"><div class="card"><div class="ctit">💡 ANÁLISIS POR SORTEO — HOY</div><div id="cHoy"></div></div></div>
+  <div id="prono" class="pg"><div class="card"><div class="ctit">🎯 PRONÓSTICOS DETALLADOS</div><div id="cProno"></div></div></div>
+  <div id="mc" class="pg"><div class="card"><div class="ctit mc">🎲 MC1 — FRECUENCIA GENERAL</div><div class="mc-cfg"><label>Lot:</label><select id="mcL1"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" id="btnMC1">▶ Simular 20k</button></div><div id="mcRes1"></div></div></div>
+  <div id="mc2" class="pg"><div class="card"><div class="ctit mc">🎲 MC2 — PATRONES 2ª/3ª→1ª</div><div id="cMC2"><div class="wbox">Cargando análisis...</div></div></div></div>
+  <div id="mc3" class="pg"><div class="card"><div class="ctit mc">🎲 MC3 — POR DÍA DE LA SEMANA</div><div class="mc-cfg"><label>Lot:</label><select id="mcL3"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" id="btnMC3">▶ Simular 20k</button></div><div id="mcRes3"></div></div></div>
+  <div id="mc4" class="pg"><div class="card"><div class="ctit mc">🎲 MC4 — POR BLOQUE DEL MES</div><div class="mc-cfg"><label>Lot:</label><select id="mcL4"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><button class="btn-mc" id="btnMC4">▶ Simular 20k</button></div><div id="mcRes4"></div></div></div>
+  <div id="hist" class="pg"><div class="card"><div class="ctit">📜 HISTORIAL — <span id="hTotal"></span> sorteos</div>
+    <div style="display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;"><select id="fL"><option value="">Todas</option><option value="GEORGIA">Georgia</option><option value="FLORIDA">Florida</option><option value="NY">NY</option></select><input type="date" id="fF"><button class="btn-o" id="btnFiltrarHist">Filtrar</button><button class="btn-o" id="btnTodoHist">Todo</button></div>
+    <div style="max-height:520px;overflow-y:auto;"><table><thead><tr><th>Fecha</th><th>Lot.</th><th>Hora</th><th>1ª</th><th>2ª</th><th>3ª</th></tr></thead><tbody id="hBody"></tbody></table></div>
+  </div></div>
+  <div id="act" class="pg"><div class="card"><div class="ctit">🔄 ACTUALIZAR SORTEOS</div>
+    <div class="mc-cfg" style="margin-bottom:14px;"><label style="color:var(--go);">Fecha:</label><input type="date" id="actFecha" style="background:rgba(0,10,30,.8);border:1px solid var(--b);color:white;padding:6px 9px;border-radius:6px;"></div>
+    <div class="fgrid" id="fAct"></div>
+    <div style="display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;"><button class="btn-g" id="btnS">💾 Guardar y Recalcular</button><button class="btn-o" id="btnC">🧹 Limpiar</button></div>
+  </div></div>
 </div>
 
 <script>
@@ -130,17 +132,35 @@ const SORTEOS_DIARIOS = [
   {loteria:'GEORGIA',horario:'23:30',label:'Georgia 11:30 PM'}
 ];
 
-let sorteos = DATOS_REALES.map(s => ({
-  fecha: s[0], loteria: s[1], horario: s[2],
-  p1: s[3], p2: s[4], p3: s[5]
-})).sort((a,b) => (a.fecha+'T'+a.horario).localeCompare(b.fecha+'T'+b.horario));
-
+// ========== NUEVA CARGA DE DATOS QUE COMBINA SIN PERDER ==========
+let sorteos;
 function cargarLS() {
+  // Cargar siempre desde los datos base actualizados (incluye hasta 29 mayo)
+  let base = DATOS_REALES.map(s => ({
+    fecha: s[0], loteria: s[1], horario: s[2],
+    p1: s[3], p2: s[4], p3: s[5]
+  }));
+  
   const s = localStorage.getItem('loto2026max_v1');
-  if (s) { try { const p = JSON.parse(s); if (p.length >= DATOS_REALES.length) sorteos = p; } catch(e) {} }
+  if (s) {
+    try {
+      const guardado = JSON.parse(s);
+      // Crear un set con las claves únicas (fecha + lotería + horario) para evitar duplicados
+      const existentes = new Set(base.map(x => `${x.fecha}|${x.loteria}|${x.horario}`));
+      // Agregar solo los sorteos guardados manualmente que no estén ya en la base
+      const nuevos = guardado.filter(x => !existentes.has(`${x.fecha}|${x.loteria}|${x.horario}`));
+      base = base.concat(nuevos);
+    } catch(e) {}
+  }
+  // Ordenar cronológicamente
+  sorteos = base.sort((a,b) => (a.fecha+'T'+a.horario).localeCompare(b.fecha+'T'+b.horario));
+  // Guardar la lista completa actualizada
+  guardarLS();
 }
-cargarLS();
+
 function guardarLS() { localStorage.setItem('loto2026max_v1', JSON.stringify(sorteos)); }
+// Inicializar los sorteos
+cargarLS();
 
 function formatoHora(h) {
   if (!h) return '';
@@ -326,7 +346,7 @@ function simYMostrar(modulo) {
 
 function renderMC2() {
   const cont = document.getElementById('cMC2');
-  let html = '<div class="ctit mc">🎲 MC2 — PATRONES 2ª/3ª→1ª COMPROBADOS</div>';
+  let html = '<div class="ctit mc">🎲 MC2 — PATRONES 2ª/3ª→1ª</div>';
   const hoy = new Date(); hoy.setHours(0,0,0,0);
   const ultimos7 = sorteos.filter(s => (hoy - new Date(s.fecha)) / 86400000 <= 7);
   const patrones = [];
@@ -427,6 +447,7 @@ function showFlash(msg) {
   setTimeout(() => d.remove(), 2500);
 }
 
+// Conectar botones
 document.getElementById('btnS').addEventListener('click', guardarActualizacion);
 document.getElementById('btnC').addEventListener('click', renderFormAct);
 document.getElementById('btnMC1').addEventListener('click', () => simYMostrar('mc1'));
@@ -439,6 +460,7 @@ document.getElementById('btnTodoHist').addEventListener('click', () => {
   renderHist();
 });
 
+// Pestañas
 const tabs = document.querySelectorAll('.tb');
 const pags = document.querySelectorAll('.pg');
 tabs.forEach(tab => {
@@ -455,6 +477,7 @@ tabs.forEach(tab => {
   });
 });
 
+// Iniciar todo
 renderFormAct(); renderHoy(); renderPronosticoA(); renderMC2(); renderHist(); actualizarStatusBar();
 })();
 </script>
